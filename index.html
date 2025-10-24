@@ -1,0 +1,2410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tax Forms Scavenger Hunt - My College Finance</title>
+    <style>
+        /* MCF CSS Variables - ALWAYS INCLUDE */
+        :root {
+            --mcf-brand-blue: #012699;
+            --mcf-brand-green: #26e011;
+            --mcf-brand-amber: #fdc003;
+            --mcf-brand-black: #000516;
+            --mcf-background: #fafafa;
+            --mcf-foreground: #09090b;
+            --mcf-card: #ffffff;
+            --mcf-card-foreground: #09090b;
+            --mcf-popover: #ffffff;
+            --mcf-popover-foreground: #09090b;
+            --mcf-primary: #336bff;
+            --mcf-primary-foreground: #f8fafc;
+            --mcf-secondary: #f1f5f9;
+            --mcf-secondary-foreground: #64748b;
+            --mcf-muted: #f1f5f9;
+            --mcf-muted-foreground: #64748b;
+            --mcf-accent: #f1f5f9;
+            --mcf-accent-foreground: #64748b;
+            --mcf-destructive: #ef4444;
+            --mcf-destructive-foreground: #f8fafc;
+            --mcf-border: #e2e8f0;
+            --mcf-input: #e2e8f0;
+            --mcf-ring: #09090b;
+            --mcf-radius: 0.5rem;
+            --mcf-transition: all 0.3s ease;
+        }
+
+        /* Dark Mode Color Scheme */
+        body.dark-mode {
+            --mcf-background: #09090b;
+            --mcf-foreground: #ffffff;
+            --mcf-card: #1a1a1f;
+            --mcf-card-foreground: #ffffff;
+            --mcf-popover: #09090b;
+            --mcf-popover-foreground: #ffffff;
+            --mcf-primary: #4c6ef5;
+            --mcf-primary-foreground: #ffffff;
+            --mcf-secondary: #374151;
+            --mcf-secondary-foreground: #ffffff;
+            --mcf-muted: #1c1917;
+            --mcf-muted-foreground: #e2e8f0;
+            --mcf-accent: #374151;
+            --mcf-accent-foreground: #ffffff;
+            --mcf-destructive: #ef4444;
+            --mcf-destructive-foreground: #ffffff;
+            --mcf-border: #374151;
+            --mcf-input: #1f2937;
+            --mcf-ring: #ffffff;
+            --mcf-brand-blue: #3b82f6;
+            --mcf-brand-green: #22c55e;
+            --mcf-brand-amber: #f59e0b;
+            --mcf-brand-black: #ffffff;
+        }
+
+        /* System font stack */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+                         'Helvetica Neue', Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: var(--mcf-background);
+            color: var(--mcf-foreground);
+            transition: var(--mcf-transition);
+        }
+
+        /* Container */
+        .mcf-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Header */
+        .mcf-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--mcf-border);
+            position: relative;
+        }
+
+        .mcf-logo {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            margin: 0 auto 1.5rem;
+            display: block;
+        }
+
+        .mcf-brand-name {
+            font-size: 1.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--mcf-brand-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .mcf-tagline {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--mcf-muted-foreground);
+        }
+
+        .mcf-title {
+            font-size: 2.25rem;
+            font-weight: 900;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin: 1.5rem 0 1rem;
+            background: linear-gradient(135deg, var(--mcf-brand-blue), var(--mcf-primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .mcf-subtitle {
+            font-size: 1.125rem;
+            color: var(--mcf-muted-foreground);
+            margin-bottom: 1rem;
+        }
+
+        /* Dark Mode Toggle */
+        .mcf-theme-toggle {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 44px;
+            height: 44px;
+            padding: 0;
+            border: 2px solid var(--mcf-border);
+            background: var(--mcf-card);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--mcf-transition);
+            color: var(--mcf-foreground);
+        }
+
+        .mcf-theme-toggle:hover {
+            border-color: var(--mcf-primary);
+            transform: scale(1.1);
+        }
+
+        .mcf-sun-icon,
+        .mcf-moon-icon {
+            position: absolute;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--mcf-border);
+            flex-wrap: wrap;
+        }
+
+        .nav-tab {
+            padding: 1rem 1.5rem;
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: var(--mcf-muted-foreground);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--mcf-transition);
+            font-family: inherit;
+        }
+
+        .nav-tab:hover {
+            color: var(--mcf-brand-blue);
+            background: rgba(51, 107, 255, 0.05);
+        }
+
+        .nav-tab.active {
+            color: var(--mcf-brand-blue);
+            border-bottom-color: var(--mcf-brand-blue);
+            background: rgba(51, 107, 255, 0.1);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Section Cards */
+        .section-card {
+            background: var(--mcf-card);
+            border: 2px solid var(--mcf-border);
+            border-radius: calc(var(--mcf-radius) * 1.5);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--mcf-brand-blue);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Tax Form Display */
+        .tax-form-container {
+            background: var(--mcf-background);
+            border: 2px solid var(--mcf-border);
+            border-radius: var(--mcf-radius);
+            padding: 2rem;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tax-form-paper {
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 2rem;
+            margin: 0 auto;
+            max-width: 800px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .tax-form-header {
+            text-align: center;
+            border-bottom: 2px solid #000;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .tax-form-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .tax-form-subtitle {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .tax-form-section {
+            margin-bottom: 2rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 1rem;
+        }
+
+        .tax-form-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px dotted #ccc;
+            margin-bottom: 0.5rem;
+        }
+
+        .tax-form-line:last-child {
+            border-bottom: none;
+        }
+
+        .tax-form-label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .tax-form-input {
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            padding: 0.25rem 0.5rem;
+            width: 120px;
+            text-align: right;
+            font-family: monospace;
+        }
+
+        .tax-form-input:focus {
+            outline: none;
+            border-color: var(--mcf-brand-blue);
+            box-shadow: 0 0 0 2px rgba(1, 38, 153, 0.2);
+        }
+
+        /* Interactive Elements */
+        .interactive-highlight {
+            position: relative;
+            cursor: pointer;
+            transition: var(--mcf-transition);
+        }
+
+        .interactive-highlight:hover {
+            background: rgba(1, 38, 153, 0.1);
+            border-radius: 4px;
+        }
+
+        .interactive-highlight.found {
+            background: rgba(38, 224, 17, 0.2);
+            border: 2px solid var(--mcf-brand-green);
+            border-radius: 4px;
+        }
+
+        .interactive-highlight.incorrect {
+            background: rgba(239, 68, 68, 0.2);
+            border: 2px solid var(--mcf-destructive);
+            border-radius: 4px;
+        }
+
+        /* Scavenger Hunt */
+        .scavenger-hunt {
+            background: var(--mcf-background);
+            border: 2px solid var(--mcf-border);
+            border-radius: var(--mcf-radius);
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .hunt-item {
+            background: var(--mcf-card);
+            border: 2px solid var(--mcf-border);
+            border-radius: var(--mcf-radius);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: var(--mcf-transition);
+        }
+
+        .hunt-item:hover {
+            border-color: var(--mcf-brand-blue);
+            transform: translateY(-2px);
+        }
+
+        .hunt-item.completed {
+            border-color: var(--mcf-brand-green);
+            background: rgba(38, 224, 17, 0.05);
+        }
+
+        .hunt-question {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--mcf-foreground);
+        }
+
+        .hunt-description {
+            color: var(--mcf-muted-foreground);
+            margin-bottom: 1rem;
+        }
+
+        .hunt-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hunt-option {
+            padding: 0.75rem;
+            border: 2px solid var(--mcf-border);
+            border-radius: var(--mcf-radius);
+            background: var(--mcf-background);
+            cursor: pointer;
+            transition: var(--mcf-transition);
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .hunt-option:hover {
+            border-color: var(--mcf-primary);
+            background: rgba(51, 107, 255, 0.1);
+        }
+
+        .hunt-option.selected {
+            border-color: var(--mcf-primary);
+            background: var(--mcf-primary);
+            color: var(--mcf-primary-foreground);
+        }
+
+        .hunt-option.correct {
+            border-color: var(--mcf-brand-green);
+            background: var(--mcf-brand-green);
+            color: var(--mcf-brand-black);
+        }
+
+        .hunt-option.incorrect {
+            border-color: var(--mcf-destructive);
+            background: var(--mcf-destructive);
+            color: white;
+        }
+        
+        /* Multiple Choice Styling */
+        .multiple-choice-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: var(--mcf-blue-light);
+            border-radius: 8px;
+            border-left: 4px solid var(--mcf-blue);
+        }
+        
+        .instruction-text {
+            font-weight: 600;
+            color: var(--mcf-blue);
+        }
+        
+        .selection-counter {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 600;
+        }
+        
+        .counter-number {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 14px;
+            min-width: 20px;
+            text-align: center;
+            background-color: var(--mcf-blue);
+            color: white;
+        }
+        
+        /* Light mode counter styling */
+        [data-theme="light"] .multiple-choice-header .selection-counter .counter-number {
+            background-color: white !important;
+            color: #0126a3 !important;
+            border: 2px solid var(--mcf-blue);
+        }
+        
+        /* Additional override for light mode */
+        .multiple-choice-header .selection-counter .counter-number {
+            color: #0126a3 !important;
+        }
+        
+        /* Dark mode counter styling */
+        [data-theme="dark"] .multiple-choice-header .selection-counter .counter-number {
+            background-color: var(--mcf-blue) !important;
+            color: white !important;
+        }
+        
+        .multiple-options .hunt-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .multiple-options .hunt-option:hover {
+            border-color: var(--mcf-blue);
+            background-color: var(--mcf-blue-light);
+        }
+        
+        .checkbox-indicator {
+            font-size: 16px;
+            color: #6b7280;
+            transition: all 0.2s ease;
+        }
+        
+        .multiple-options .hunt-option.selected .checkbox-indicator {
+            color: var(--mcf-blue);
+        }
+        
+        .multiple-options .hunt-option.selected {
+            border-color: var(--mcf-blue);
+            background-color: var(--mcf-blue-light);
+        }
+        
+        .multiple-options .hunt-option.correct-option {
+            border-color: #10b981;
+            background-color: #d1fae5;
+        }
+        
+        .multiple-options .hunt-option.selected.correct-option {
+            border-color: #10b981;
+            background-color: #a7f3d0;
+        }
+        
+        .option-text {
+            flex: 1;
+        }
+        
+        /* Submit Button Styling */
+        .submit-section {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        
+        
+        /* Force all text to be dark and readable (except buttons) */
+        .hunt-item,
+        .hunt-item *,
+        .hunt-question,
+        .hunt-description,
+        .hunt-option,
+        .hunt-option *,
+        .option-text,
+        .checkbox-indicator,
+        .instruction-text,
+        .selection-counter,
+        .counter-number,
+        .multiple-choice-header,
+        .submit-section {
+            color: #000000 !important;
+            background-color: transparent !important;
+        }
+        
+        /* Unique Submit Button Class - Completely Isolated */
+        .mcf-submit-button {
+            background-color: #6b7280 !important;
+            color: white !important;
+            border: 2px solid #6b7280 !important;
+            padding: 12px 24px !important;
+            border-radius: 8px !important;
+            font-size: 16px !important;
+            font-weight: 600 !important;
+            cursor: pointer !important;
+            transition: none !important;
+            min-width: 140px !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            display: inline-block !important;
+            outline: none !important;
+            box-shadow: none !important;
+            -webkit-appearance: none !important;
+            -moz-appearance: none !important;
+            appearance: none !important;
+        }
+        
+        .mcf-submit-button:not(:disabled) {
+            background-color: #0126a3 !important;
+            color: white !important;
+            border: 2px solid #0126a3 !important;
+        }
+        
+        .mcf-submit-button:disabled {
+            background-color: #6b7280 !important;
+            color: white !important;
+            border: 2px solid #6b7280 !important;
+            cursor: not-allowed !important;
+        }
+        
+        .mcf-submit-button:hover:not(:disabled) {
+            background-color: #0126a3 !important;
+            color: white !important;
+            border: 2px solid #0126a3 !important;
+        }
+        
+        .mcf-submit-button:focus,
+        .mcf-submit-button:active,
+        .mcf-submit-button:visited {
+            background-color: #0126a3 !important;
+            color: white !important;
+            border: 2px solid #0126a3 !important;
+            outline: none !important;
+        }
+        
+        /* Selected option styling */
+        .hunt-option.selected {
+            background-color: #e3f2fd !important;
+            border: 2px solid #0126a3 !important;
+            color: #0126a3 !important;
+            font-weight: 600 !important;
+        }
+        
+        .hunt-option.selected .checkbox-indicator {
+            color: #0126a3 !important;
+        }
+        
+        /* Force option text to be black */
+        .hunt-option {
+            color: #000000 !important;
+            background-color: #ffffff !important;
+            border: 2px solid #e5e7eb !important;
+        }
+        
+        .hunt-option.selected {
+            background-color: var(--mcf-blue-light) !important;
+            color: #000000 !important;
+            border: 2px solid var(--mcf-blue) !important;
+        }
+        
+        .hunt-option:hover {
+            background-color: var(--mcf-blue-light) !important;
+            color: #000000 !important;
+        }
+        
+        /* Force question text to be black */
+        .hunt-question {
+            color: #000000 !important;
+        }
+        
+        .hunt-description {
+            color: #000000 !important;
+        }
+        
+        /* Force instruction text to be black */
+        .instruction-text {
+            color: #000000 !important;
+        }
+        
+        /* Force counter text to be black */
+        .selection-counter {
+            color: #000000 !important;
+        }
+        
+        .counter-number {
+            background-color: var(--mcf-blue) !important;
+            color: white !important;
+        }
+
+        .hunt-feedback {
+            padding: 1rem;
+            border-radius: var(--mcf-radius);
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .hunt-feedback.correct {
+            background: rgba(38, 224, 17, 0.1);
+            border: 1px solid var(--mcf-brand-green);
+            color: var(--mcf-brand-green);
+        }
+
+        .hunt-feedback.incorrect {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--mcf-destructive);
+            color: var(--mcf-destructive);
+        }
+
+        .hunt-feedback.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Progress Tracking */
+        .progress-section {
+            background: var(--mcf-card);
+            border: 2px solid var(--mcf-border);
+            border-radius: calc(var(--mcf-radius) * 1.5);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .progress-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        .progress-stats {
+            display: flex;
+            gap: 2rem;
+            font-size: 0.875rem;
+            color: var(--mcf-muted-foreground);
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stat-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+        }
+
+        .stat-correct { background: var(--mcf-brand-green); }
+        .stat-incorrect { background: var(--mcf-destructive); }
+        .stat-remaining { background: var(--mcf-brand-amber); }
+
+        .progress-bar-container {
+            background: var(--mcf-muted);
+            border-radius: var(--mcf-radius);
+            height: 12px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--mcf-brand-green) 0%, var(--mcf-brand-blue) 100%);
+            border-radius: var(--mcf-radius);
+            transition: width 0.5s ease;
+        }
+
+        .progress-percentage {
+            text-align: center;
+            margin-top: 0.5rem;
+            font-weight: 600;
+            color: var(--mcf-brand-blue);
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .mcf-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: var(--mcf-radius);
+            transition: var(--mcf-transition);
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
+            font-family: inherit;
+            gap: 0.5rem;
+        }
+
+        .mcf-btn-primary {
+            background-color: var(--mcf-primary);
+            color: var(--mcf-primary-foreground);
+        }
+
+        .mcf-btn-primary:hover {
+            background-color: var(--mcf-brand-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .mcf-btn-success {
+            background-color: var(--mcf-brand-green);
+            color: var(--mcf-brand-black);
+        }
+
+        .mcf-btn-success:hover {
+            background-color: #1fb80d;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(38, 224, 17, 0.2);
+        }
+
+        .mcf-btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--mcf-border);
+            color: var(--mcf-foreground);
+        }
+
+        .mcf-btn-outline:hover {
+            border-color: var(--mcf-primary);
+            background-color: rgba(51, 107, 255, 0.05);
+        }
+
+        /* Footer */
+        .mcf-footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--mcf-border);
+        }
+
+        .mcf-footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .mcf-footer-link {
+            color: var(--mcf-muted-foreground);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.3s ease;
+        }
+
+        .mcf-footer-link:hover {
+            color: var(--mcf-brand-blue);
+            text-decoration: underline;
+        }
+
+        .mcf-copyright {
+            font-size: 0.75rem;
+            color: var(--mcf-muted-foreground);
+        }
+
+        /* Feedback Animations */
+        @keyframes feedbackSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .feedback-content {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feedback-icon {
+            font-size: 1.5rem;
+        }
+
+        .feedback-text {
+            font-weight: 600;
+        }
+
+        .feedback-hint {
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            opacity: 0.9;
+        }
+
+        /* Interactive Highlight Improvements */
+        .interactive-highlight {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .interactive-highlight::after {
+            content: "ℹ️";
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            font-size: 0.75rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .interactive-highlight:hover::after {
+            opacity: 1;
+        }
+
+        .interactive-highlight:focus {
+            outline: 2px solid var(--mcf-brand-blue);
+            outline-offset: 2px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .mcf-title {
+                font-size: 1.75rem;
+            }
+
+            .nav-tabs {
+                flex-direction: column;
+            }
+
+            .nav-tab {
+                text-align: left;
+            }
+
+            .hunt-options {
+                grid-template-columns: 1fr;
+            }
+
+            .progress-stats {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .mcf-btn {
+                width: 100%;
+            }
+
+            .tax-form-paper {
+                padding: 1rem;
+            }
+
+            .completion-celebration .celebration-content {
+                margin: 1rem;
+                padding: 2rem;
+            }
+
+            .completion-celebration .celebration-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mcf-container">
+        <!-- Header -->
+        <header class="mcf-header">
+            <button id="mcf-theme-toggle" class="mcf-theme-toggle" aria-label="Toggle dark mode">
+                <svg class="mcf-sun-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <circle cx="10" cy="10" r="4" fill="currentColor"/>
+                    <path d="M10 0v4M10 16v4M20 10h-4M4 10H0M17.07 2.93l-2.83 2.83M5.76 14.24l-2.83 2.83M17.07 17.07l-2.83-2.83M5.76 5.76L2.93 2.93" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <svg class="mcf-moon-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" style="display:none;">
+                    <path d="M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C10.3395 3 10.6734 3.02389 11 3.07039C9.27477 4.07544 8 5.8965 8 8C8 11.3137 10.6863 14 14 14C15.1035 14 16.0754 13.6238 16.9296 12.9998C16.9762 13.3266 17 13.6605 17 14Z" fill="currentColor"/>
+                </svg>
+            </button>
+
+            <img src="https://static.wixstatic.com/media/c24a60_2b6231b666214539ae22ebd2dffe7a09~mv2.png" 
+                 alt="My College Finance Logo" 
+                 class="mcf-logo">
+            <div class="mcf-brand-name">MY COLLEGE FINANCE</div>
+            <div class="mcf-tagline">EDUCATE • MOTIVATE • ELEVATE</div>
+            <h1 class="mcf-title">Tax Forms Scavenger Hunt</h1>
+            <p class="mcf-subtitle">Master tax form navigation with interactive exercises and visual guides</p>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('overview')">📋 Overview</button>
+            <button class="nav-tab" onclick="showTab('scavenger-hunt')">🔍 Scavenger Hunt</button>
+            <button class="nav-tab" onclick="showTab('tax-forms')">📄 Tax Forms</button>
+            <button class="nav-tab" onclick="showTab('guide')">📖 Visual Guide</button>
+        </nav>
+
+        <!-- Overview Tab -->
+        <div id="overview" class="tab-content active">
+            <div class="section-card">
+                <h2 class="section-title">🎯 Understanding Tax Forms</h2>
+                <p>Tax forms can be overwhelming, but knowing where to find key information is crucial for completing your FAFSA accurately. This interactive scavenger hunt will help you master the most important tax forms and locate essential information.</p>
+            </div>
+
+            <div class="section-card">
+                <h2 class="section-title">📊 Key Tax Forms You'll Learn</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                    <div style="background: var(--mcf-background); padding: 1.5rem; border-radius: var(--mcf-radius); border: 1px solid var(--mcf-border);">
+                        <h3 style="color: var(--mcf-brand-blue); margin-bottom: 0.5rem;">📄 Form 1040</h3>
+                        <p style="color: var(--mcf-muted-foreground);">The main tax return form where you'll find Adjusted Gross Income (AGI) and Federal Income Tax Paid.</p>
+                    </div>
+                    <div style="background: var(--mcf-background); padding: 1.5rem; border-radius: var(--mcf-radius); border: 1px solid var(--mcf-border);">
+                        <h3 style="color: var(--mcf-brand-blue); margin-bottom: 0.5rem;">💼 W-2 Forms</h3>
+                        <p style="color: var(--mcf-muted-foreground);">Wage and tax statements from employers showing wages earned and taxes withheld.</p>
+                    </div>
+                    <div style="background: var(--mcf-background); padding: 1.5rem; border-radius: var(--mcf-radius); border: 1px solid var(--mcf-border);">
+                        <h3 style="color: var(--mcf-brand-blue); margin-bottom: 0.5rem;">🏢 Schedule C</h3>
+                        <p style="color: var(--mcf-muted-foreground);">For self-employed individuals reporting business income and expenses.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h2 class="section-title">🔍 What You'll Learn to Find</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                    <div style="background: rgba(1, 38, 153, 0.05); padding: 1rem; border-radius: var(--mcf-radius); border-left: 4px solid var(--mcf-brand-blue);">
+                        <h4 style="color: var(--mcf-brand-blue); margin-bottom: 0.5rem;">💰 Adjusted Gross Income (AGI)</h4>
+                        <p style="font-size: 0.875rem; color: var(--mcf-muted-foreground);">Line 11 on Form 1040 - crucial for FAFSA calculations</p>
+                    </div>
+                    <div style="background: rgba(1, 38, 153, 0.05); padding: 1rem; border-radius: var(--mcf-radius); border-left: 4px solid var(--mcf-brand-blue);">
+                        <h4 style="color: var(--mcf-brand-blue); margin-bottom: 0.5rem;">🏛️ Federal Income Tax Paid</h4>
+                        <p style="font-size: 0.875rem; color: var(--mcf-muted-foreground);">Line 24 on Form 1040 - the amount you actually paid</p>
+                    </div>
+                    <div style="background: rgba(1, 38, 153, 0.05); padding: 1rem; border-radius: var(--mcf-radius); border-left: 4px solid var(--mcf-brand-blue);">
+                        <h4 style="color: var(--mcf-brand-blue); margin-bottom: 0.5rem;">💵 Wages and Salaries</h4>
+                        <p style="font-size: 0.875rem; color: var(--mcf-muted-foreground);">Box 1 on W-2 forms - your gross income</p>
+                    </div>
+                    <div style="background: rgba(1, 38, 153, 0.05); padding: 1rem; border-radius: var(--mcf-radius); border-left: 4px solid var(--mcf-brand-blue);">
+                        <h4 style="color: var(--mcf-brand-blue); margin-bottom: 0.5rem;">🏪 Self-Employment Income</h4>
+                        <p style="font-size: 0.875rem; color: var(--mcf-muted-foreground);">Net profit from Schedule C - business income</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scavenger Hunt Tab -->
+        <div id="scavenger-hunt" class="tab-content">
+            <!-- Progress Section -->
+            <div class="progress-section">
+                <div class="progress-header">
+                    <div class="progress-title">📊 Your Progress</div>
+                    <div class="progress-stats">
+                        <div class="stat-item">
+                            <div class="stat-icon stat-correct">✓</div>
+                            <span id="correct-count">0</span> Correct
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon stat-incorrect">✗</div>
+                            <span id="incorrect-count">0</span> Incorrect
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon stat-remaining">?</div>
+                            <span id="remaining-count">5</span> Remaining
+                        </div>
+                    </div>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
+                </div>
+                <div class="progress-percentage" id="progress-percentage">0% Complete</div>
+            </div>
+
+            <!-- Scavenger Hunt Items -->
+            <div class="scavenger-hunt" id="scavenger-hunt-container">
+                <!-- Hunt items will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Tax Forms Tab -->
+        <div id="tax-forms" class="tab-content">
+            <div class="section-card">
+                <h2 class="section-title">📄 Interactive Tax Forms</h2>
+                <p style="margin-bottom: 2rem; color: var(--mcf-muted-foreground);">Click on the highlighted areas to learn about different sections of tax forms. Practice finding key information for your FAFSA.</p>
+                
+                <div class="tax-form-container">
+                    <div class="tax-form-paper">
+                        <div class="tax-form-header">
+                            <div class="tax-form-title">Form 1040</div>
+                            <div class="tax-form-subtitle">U.S. Individual Income Tax Return</div>
+                        </div>
+                        
+                        <div class="tax-form-section">
+                            <h4 style="margin-bottom: 1rem; color: #333;">Income</h4>
+                            <div class="tax-form-line">
+                                <span class="tax-form-label">1 Wages, salaries, tips, etc.</span>
+                                <input type="text" class="tax-form-input interactive-highlight" data-info="wages" placeholder="$0">
+                            </div>
+                            <div class="tax-form-line">
+                                <span class="tax-form-label">2a Taxable interest</span>
+                                <input type="text" class="tax-form-input interactive-highlight" data-info="interest" placeholder="$0">
+                            </div>
+                            <div class="tax-form-line">
+                                <span class="tax-form-label">3a Qualified dividends</span>
+                                <input type="text" class="tax-form-input interactive-highlight" data-info="dividends" placeholder="$0">
+                            </div>
+                            <div class="tax-form-line">
+                                <span class="tax-form-label">7 Wages, salaries, tips, etc.</span>
+                                <input type="text" class="tax-form-input interactive-highlight" data-info="wages-2" placeholder="$0">
+                            </div>
+                        </div>
+                        
+                        <div class="tax-form-section">
+                            <h4 style="margin-bottom: 1rem; color: #333;">Adjusted Gross Income</h4>
+                            <div class="tax-form-line">
+                                <span class="tax-form-label">11 Adjusted gross income</span>
+                                <input type="text" class="tax-form-input interactive-highlight" data-info="agi" placeholder="$0" style="background: rgba(1, 38, 153, 0.1); border-color: var(--mcf-brand-blue);">
+                            </div>
+                        </div>
+                        
+                        <div class="tax-form-section">
+                            <h4 style="margin-bottom: 1rem; color: #333;">Tax and Credits</h4>
+                            <div class="tax-form-line">
+                                <span class="tax-form-label">16 Tax (see instructions)</span>
+                                <input type="text" class="tax-form-input interactive-highlight" data-info="tax" placeholder="$0">
+                            </div>
+                            <div class="tax-form-line">
+                                <span class="tax-form-label">24 Federal income tax withheld from Forms W-2 and 1099</span>
+                                <input type="text" class="tax-form-input interactive-highlight" data-info="federal-tax-paid" placeholder="$0" style="background: rgba(1, 38, 153, 0.1); border-color: var(--mcf-brand-blue);">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Visual Guide Tab -->
+        <div id="guide" class="tab-content">
+            <div class="section-card">
+                <h2 class="section-title">📖 Tax Form Visual Guide</h2>
+                <p style="margin-bottom: 2rem; color: var(--mcf-muted-foreground);">Comprehensive visual guide to understanding tax forms and locating key information for FAFSA completion.</p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1.5rem;">
+                    <!-- Form 1040 Guide -->
+                    <div style="background: var(--mcf-background); border: 2px solid var(--mcf-brand-blue); border-radius: var(--mcf-radius); padding: 1.5rem;">
+                        <h3 style="color: var(--mcf-brand-blue); margin-bottom: 1rem;">📄 Form 1040 - Key Lines</h3>
+                        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                            <div style="padding: 0.75rem; border-radius: var(--mcf-radius); background: rgba(1, 38, 153, 0.05); border: 1px solid rgba(1, 38, 153, 0.2);">
+                                <strong>Line 11 - Adjusted Gross Income (AGI)</strong><br>
+                                <small style="color: var(--mcf-muted-foreground);">Most important for FAFSA - this is your AGI</small>
+                            </div>
+                            <div style="padding: 0.75rem; border-radius: var(--mcf-radius); background: rgba(1, 38, 153, 0.05); border: 1px solid rgba(1, 38, 153, 0.2);">
+                                <strong>Line 24 - Federal Income Tax Paid</strong><br>
+                                <small style="color: var(--mcf-muted-foreground);">Amount you actually paid in federal taxes</small>
+                            </div>
+                            <div style="padding: 0.75rem; border-radius: var(--mcf-radius); background: rgba(1, 38, 153, 0.05); border: 1px solid rgba(1, 38, 153, 0.2);">
+                                <strong>Line 1 - Wages, Salaries, Tips</strong><br>
+                                <small style="color: var(--mcf-muted-foreground);">Total wages from all W-2 forms</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- W-2 Guide -->
+                    <div style="background: var(--mcf-background); border: 2px solid var(--mcf-brand-green); border-radius: var(--mcf-radius); padding: 1.5rem;">
+                        <h3 style="color: var(--mcf-brand-green); margin-bottom: 1rem;">💼 W-2 Form - Key Boxes</h3>
+                        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                            <div style="padding: 0.75rem; border-radius: var(--mcf-radius); background: rgba(38, 224, 17, 0.05); border: 1px solid rgba(38, 224, 17, 0.2);">
+                                <strong>Box 1 - Wages, Tips, Other Compensation</strong><br>
+                                <small style="color: var(--mcf-muted-foreground);">Your gross wages before taxes</small>
+                            </div>
+                            <div style="padding: 0.75rem; border-radius: var(--mcf-radius); background: rgba(38, 224, 17, 0.05); border: 1px solid rgba(38, 224, 17, 0.2);">
+                                <strong>Box 2 - Federal Income Tax Withheld</strong><br>
+                                <small style="color: var(--mcf-muted-foreground);">Federal taxes withheld from your pay</small>
+                            </div>
+                            <div style="padding: 0.75rem; border-radius: var(--mcf-radius); background: rgba(38, 224, 17, 0.05); border: 1px solid rgba(38, 224, 17, 0.2);">
+                                <strong>Box 3 - Social Security Wages</strong><br>
+                                <small style="color: var(--mcf-muted-foreground);">Wages subject to Social Security tax</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Schedule C Guide -->
+                    <div style="background: var(--mcf-background); border: 2px solid var(--mcf-brand-amber); border-radius: var(--mcf-radius); padding: 1.5rem;">
+                        <h3 style="color: var(--mcf-brand-amber); margin-bottom: 1rem;">🏢 Schedule C - Self-Employment</h3>
+                        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                            <div style="padding: 0.75rem; border-radius: var(--mcf-radius); background: rgba(253, 192, 3, 0.05); border: 1px solid rgba(253, 192, 3, 0.2);">
+                                <strong>Line 7 - Gross Receipts or Sales</strong><br>
+                                <small style="color: var(--mcf-muted-foreground);">Total business income before expenses</small>
+                            </div>
+                            <div style="padding: 0.75rem; border-radius: var(--mcf-radius); background: rgba(253, 192, 3, 0.05); border: 1px solid rgba(253, 192, 3, 0.2);">
+                                <strong>Line 31 - Net Profit or Loss</strong><br>
+                                <small style="color: var(--mcf-muted-foreground);">Business income after expenses (for FAFSA)</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Common Mistakes -->
+                    <div style="background: var(--mcf-background); border: 2px solid var(--mcf-destructive); border-radius: var(--mcf-radius); padding: 1.5rem;">
+                        <h3 style="color: var(--mcf-destructive); margin-bottom: 1rem;">⚠️ Common Mistakes</h3>
+                        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                            <div style="padding: 0.75rem; border-radius: var(--mcf-radius); background: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.2);">
+                                <strong>❌ Using W-2 Box 2 instead of 1040 Line 24</strong><br>
+                                <small style="color: var(--mcf-muted-foreground);">W-2 shows withholding, 1040 shows actual tax paid</small>
+                            </div>
+                            <div style="padding: 0.75rem; border-radius: var(--mcf-radius); background: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.2);">
+                                <strong>❌ Confusing Gross Income with AGI</strong><br>
+                                <small style="color: var(--mcf-muted-foreground);">AGI (Line 11) is after deductions, not gross income</small>
+                            </div>
+                            <div style="padding: 0.75rem; border-radius: var(--mcf-radius); background: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.2);">
+                                <strong>❌ Missing Self-Employment Income</strong><br>
+                                <small style="color: var(--mcf-muted-foreground);">Schedule C net profit must be included in FAFSA</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button class="mcf-btn mcf-btn-primary" onclick="saveAndDownload(this)">
+                📥 Save & Download PDF
+            </button>
+            <button class="mcf-btn mcf-btn-success" onclick="downloadGuide(this)">
+                📖 Download Visual Guide
+            </button>
+            <button class="mcf-btn mcf-btn-outline" onclick="resetHunt()">
+                🔄 Reset Scavenger Hunt
+            </button>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mcf-footer">
+            <div class="mcf-footer-links">
+                <a href="https://www.mycollegefinance.com/" target="_blank" class="mcf-footer-link">Main Website</a>
+                <span>•</span>
+                <a href="https://www.mycollegefinance.com/privacy-policy" target="_blank" class="mcf-footer-link">Privacy Policy</a>
+                <span>•</span>
+                <a href="https://www.mycollegefinance.com/terms-policy" target="_blank" class="mcf-footer-link">Terms of Service</a>
+                <span>•</span>
+                <a href="https://linktr.ee/mycollegefinance" target="_blank" class="mcf-footer-link">Social Media</a>
+            </div>
+            <p class="mcf-copyright">© 2025 My College Finance. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" 
+            onerror="this.onerror=null; this.src='https://unpkg.com/jspdf@2.5.1/dist/jspdf.umd.min.js';"></script>
+    <script>
+        // Wait for jsPDF to load
+        function waitForJsPDF(callback, maxAttempts = 50) {
+            let attempts = 0;
+            const checkJsPDF = () => {
+                attempts++;
+                if (typeof window.jspdf !== 'undefined') {
+                    callback();
+                } else if (attempts < maxAttempts) {
+                    setTimeout(checkJsPDF, 100);
+                } else {
+                    console.error('jsPDF failed to load after', maxAttempts, 'attempts');
+                    alert('PDF library failed to load. Please refresh the page and try again.');
+                }
+            };
+            checkJsPDF();
+        }
+    </script>
+    <script>
+        // Scavenger Hunt Data with Multiple Question Types
+        const huntData = [
+            {
+                id: 1,
+                question: "Where do you find your Adjusted Gross Income (AGI) on Form 1040?",
+                description: "This is the most important number for FAFSA calculations.",
+                options: [
+                    "Line 1 - Wages, salaries, tips",
+                    "Line 11 - Adjusted gross income",
+                    "Line 24 - Federal income tax withheld",
+                    "Line 16 - Tax"
+                ],
+                correct: 1,
+                explanation: "Line 11 shows your Adjusted Gross Income (AGI), which is the key number used in FAFSA calculations. This is your income after certain deductions but before itemized deductions."
+            },
+            {
+                id: 2,
+                question: "Which of the following are required for FAFSA completion? (Select ALL that apply)",
+                description: "FAFSA requires specific information from your tax forms.",
+                type: "multiple",
+                correctAnswers: 3,
+                options: [
+                    "Adjusted Gross Income (AGI)",
+                    "Federal Income Tax Paid",
+                    "Wages and Salaries",
+                    "Social Security Number"
+                ],
+                correct: [0, 1, 2], // Multiple correct answers
+                explanation: "FAFSA requires AGI, Federal Income Tax Paid, and Wages/Salaries from your tax forms. Your Social Security Number is required but comes from other documents, not tax forms."
+            },
+            {
+                id: 3,
+                question: "What information can you find in Box 1 of a W-2 form?",
+                description: "W-2 forms contain specific wage information.",
+                options: [
+                    "Federal income tax withheld",
+                    "Gross wages before taxes",
+                    "Social security wages",
+                    "Medicare wages"
+                ],
+                correct: 1,
+                explanation: "Box 1 shows your gross wages, tips, and other compensation - your total income before any taxes or deductions are taken out."
+            },
+            {
+                id: 4,
+                question: "Which tax forms are commonly needed for FAFSA? (Select ALL that apply)",
+                description: "Multiple tax forms may be required depending on your situation.",
+                type: "multiple",
+                correctAnswers: 3,
+                options: [
+                    "Form 1040",
+                    "W-2 forms",
+                    "Schedule C (if self-employed)",
+                    "Form 1099-INT"
+                ],
+                correct: [0, 1, 2], // Multiple correct answers
+                explanation: "Form 1040, W-2 forms, and Schedule C (for self-employed) are commonly needed. Form 1099-INT is for interest income and may be needed if you have significant interest earnings."
+            },
+            {
+                id: 5,
+                question: "What's the difference between gross income and AGI?",
+                description: "Understanding this distinction is crucial for accurate FAFSA completion.",
+                options: [
+                    "They are the same thing",
+                    "AGI is gross income minus certain deductions",
+                    "Gross income is AGI minus deductions",
+                    "AGI includes all income, gross income doesn't"
+                ],
+                correct: 1,
+                explanation: "AGI (Adjusted Gross Income) is your gross income minus certain deductions like student loan interest, IRA contributions, and other adjustments. FAFSA uses AGI, not gross income."
+            },
+            {
+                id: 6,
+                question: "Which of the following are common mistakes when completing FAFSA? (Select ALL that apply)",
+                description: "Avoid these common errors for accurate FAFSA completion.",
+                type: "multiple",
+                correctAnswers: 3,
+                options: [
+                    "Using W-2 Box 2 instead of 1040 Line 24",
+                    "Confusing gross income with AGI",
+                    "Missing self-employment income",
+                    "Using the wrong tax year"
+                ],
+                correct: [0, 1, 2], // Multiple correct answers
+                explanation: "Common mistakes include using W-2 withholding instead of actual tax paid, confusing gross income with AGI, and missing self-employment income. Always use the correct tax year for the academic year you're applying for."
+            }
+        ];
+
+        // Application State
+        let huntState = {
+            answers: {},
+            startTime: Date.now(),
+            correctCount: 0,
+            incorrectCount: 0
+        };
+
+        // Initialize the application
+        function initializeApp() {
+            loadSavedState();
+            renderScavengerHunt();
+            setupTaxFormInteractions();
+            updateProgress();
+            
+            // Continuous button color monitoring
+            setInterval(() => {
+                const buttons = document.querySelectorAll('.mcf-submit-button');
+                buttons.forEach(button => {
+                    if (button.disabled) {
+                        button.style.setProperty('background-color', '#6b7280', 'important');
+                        button.style.setProperty('border-color', '#6b7280', 'important');
+                    } else {
+                        button.style.setProperty('background-color', '#0126a3', 'important');
+                        button.style.setProperty('border-color', '#0126a3', 'important');
+                    }
+                    button.style.setProperty('color', 'white', 'important');
+                });
+            }, 100);
+        }
+
+        // Tab Navigation
+        function showTab(tabId) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabId).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+
+        // Render Scavenger Hunt
+        function renderScavengerHunt() {
+            const container = document.getElementById('scavenger-hunt-container');
+            container.innerHTML = '';
+            
+            huntData.forEach(item => {
+                const huntItem = document.createElement('div');
+                huntItem.className = 'hunt-item';
+                huntItem.id = `hunt-item-${item.id}`;
+                
+                const isAnswered = huntState.answers[item.id];
+                const isCorrect = isAnswered && huntState.answers[item.id].correct;
+                
+                if (isAnswered) {
+                    huntItem.classList.add('completed');
+                }
+                
+                // Check if this is a multiple choice question
+                const isMultiple = item.type === 'multiple';
+                const correctAnswers = item.correctAnswers || 1;
+                const currentSelections = isAnswered && isAnswered.selected ? isAnswered.selected : [];
+                
+                huntItem.innerHTML = `
+                    <div class="hunt-question">
+                        ${item.question}
+                        ${isMultiple ? `<div class="multiple-choice-header">
+                            <span class="instruction-text">Select <strong>${correctAnswers}</strong> correct answer${correctAnswers > 1 ? 's' : ''}</span>
+                            <span class="selection-counter">
+                                <span class="counter-number" style="color: #0126a3 !important; background-color: white !important; border: 2px solid #0126a3 !important;">${currentSelections.length}</span> / ${correctAnswers} selected
+                            </span>
+                        </div>` : ''}
+                    </div>
+                    <div class="hunt-description">${item.description}</div>
+                    <div class="hunt-options ${isMultiple ? 'multiple-options' : ''}">
+                        ${item.options.map((option, index) => {
+                            let optionClass = 'hunt-option';
+                            
+                            if (isAnswered && isAnswered.evaluated) {
+                                if (isMultiple) {
+                                    // Multiple choice styling after evaluation
+                                    if (item.correct.includes(index)) {
+                                        optionClass += ' correct-option';
+                                    }
+                                    if (currentSelections.includes(index)) {
+                                        optionClass += ' selected';
+                                    }
+                                } else {
+                                    // Single choice styling after evaluation
+                                    if (index === item.correct) {
+                                        optionClass += ' correct';
+                                    } else if (index === isAnswered.selected) {
+                                        optionClass += ' incorrect';
+                                    }
+                                }
+                            } else if (isAnswered && !isAnswered.evaluated) {
+                                // Show selection but not evaluation
+                                if (isMultiple && currentSelections.includes(index)) {
+                                    optionClass += ' selected';
+                                } else if (!isMultiple && index === isAnswered.selected) {
+                                    optionClass += ' selected';
+                                }
+                            }
+                            
+                            return `<div class="${optionClass}" onclick="selectAnswer(${item.id}, ${index})">
+                                ${isMultiple ? `<span class="checkbox-indicator">${currentSelections.includes(index) ? '☑' : '☐'}</span>` : ''}
+                                <span class="option-text">${option}</span>
+                            </div>`;
+                        }).join('')}
+                    </div>
+                    ${!isAnswered || !isAnswered.evaluated ? `
+                        <div class="submit-section">
+                            <button id="submit-btn-${item.id}" class="mcf-submit-button" onclick="submitAnswer(${item.id})" ${(isMultiple && currentSelections.length === 0) || (!isMultiple && !isAnswered) ? 'disabled' : ''}>
+                                Submit Answer
+                            </button>
+                        </div>
+                    ` : ''}
+                    <div class="hunt-feedback ${isAnswered && isAnswered.evaluated ? (isCorrect ? 'correct' : 'incorrect') : ''} ${isAnswered && isAnswered.evaluated ? 'show' : ''}">
+                        <strong>${isCorrect ? '✅ Correct!' : '❌ Not quite right'}</strong><br>
+                        ${item.explanation}
+                    </div>
+                `;
+                
+                container.appendChild(huntItem);
+            });
+        }
+
+        // Select Answer
+        function selectAnswer(itemId, optionIndex) {
+            const item = huntData.find(i => i.id === itemId);
+            
+            // Handle multiple choice questions
+            if (item.type === 'multiple') {
+                if (!huntState.answers[itemId]) {
+                    huntState.answers[itemId] = {
+                        selected: [],
+                        correct: false,
+                        evaluated: false,
+                        timestamp: Date.now()
+                    };
+                }
+                
+                // Don't allow changes if already evaluated
+                if (huntState.answers[itemId].evaluated) {
+                    return;
+                }
+                
+                const currentSelections = huntState.answers[itemId].selected;
+                const correctAnswers = item.correctAnswers || 1;
+                
+                // Toggle selection
+                if (currentSelections.includes(optionIndex)) {
+                    // Remove selection
+                    currentSelections.splice(currentSelections.indexOf(optionIndex), 1);
+                } else {
+                    // Add selection (limit to correctAnswers count)
+                    if (currentSelections.length < correctAnswers) {
+                        currentSelections.push(optionIndex);
+                    } else {
+                        // Replace oldest selection
+                        currentSelections.shift();
+                        currentSelections.push(optionIndex);
+                    }
+                }
+                
+            saveState();
+            renderScavengerHunt();
+            updateProgress();
+            
+            // Force button color after selection
+            setTimeout(() => {
+                const submitButton = document.getElementById(`submit-btn-${itemId}`);
+                if (submitButton) {
+                    if (submitButton.disabled) {
+                        submitButton.style.setProperty('background-color', '#6b7280', 'important');
+                        submitButton.style.setProperty('border-color', '#6b7280', 'important');
+                    } else {
+                        submitButton.style.setProperty('background-color', '#0126a3', 'important');
+                        submitButton.style.setProperty('border-color', '#0126a3', 'important');
+                    }
+                    submitButton.style.setProperty('color', 'white', 'important');
+                }
+                
+                // Force all text to be black (except buttons)
+                const huntItem = document.getElementById(`hunt-item-${itemId}`);
+                if (huntItem) {
+                    const allText = huntItem.querySelectorAll('*');
+                    allText.forEach(element => {
+                        if (element.tagName !== 'BUTTON' && !element.classList.contains('mcf-submit-button')) {
+                            element.style.setProperty('color', '#000000', 'important');
+                        }
+                    });
+                }
+                
+            }, 10);
+            return;
+            }
+            
+            // Handle single choice questions
+            if (huntState.answers[itemId] && huntState.answers[itemId].evaluated) {
+                return; // Already answered and evaluated
+            }
+            
+            // Store selection but don't evaluate yet
+            huntState.answers[itemId] = {
+                selected: optionIndex,
+                correct: false,
+                evaluated: false,
+                timestamp: Date.now()
+            };
+            
+            saveState();
+            renderScavengerHunt();
+            updateProgress();
+            
+            // Force button color after selection
+            setTimeout(() => {
+                const submitButton = document.getElementById(`submit-btn-${itemId}`);
+                if (submitButton) {
+                    if (submitButton.disabled) {
+                        submitButton.style.setProperty('background-color', '#6b7280', 'important');
+                        submitButton.style.setProperty('border-color', '#6b7280', 'important');
+                    } else {
+                        submitButton.style.setProperty('background-color', '#0126a3', 'important');
+                        submitButton.style.setProperty('border-color', '#0126a3', 'important');
+                    }
+                    submitButton.style.setProperty('color', 'white', 'important');
+                }
+                
+                // Force all text to be black (except buttons)
+                const huntItem = document.getElementById(`hunt-item-${itemId}`);
+                if (huntItem) {
+                    const allText = huntItem.querySelectorAll('*');
+                    allText.forEach(element => {
+                        if (element.tagName !== 'BUTTON' && !element.classList.contains('mcf-submit-button')) {
+                            element.style.setProperty('color', '#000000', 'important');
+                        }
+                    });
+                }
+                
+            }, 10);
+        }
+        
+        // Submit Answer for Evaluation
+        function submitAnswer(itemId) {
+            // Prevent button color changes using CSS variables
+            const button = document.getElementById(`submit-btn-${itemId}`);
+            if (button) {
+                button.style.setProperty('--mcf-submit-bg-enabled', '#0126a3', 'important');
+                button.style.setProperty('--mcf-submit-border-enabled', '#0126a3', 'important');
+                button.style.setProperty('--mcf-submit-text', 'white', 'important');
+                button.style.setProperty('opacity', '1', 'important');
+                button.style.setProperty('visibility', 'visible', 'important');
+            }
+            
+            const item = huntData.find(i => i.id === itemId);
+            const answer = huntState.answers[itemId];
+            
+            if (!answer || answer.evaluated) {
+                return;
+            }
+            
+            let isCorrect = false;
+            
+            if (item.type === 'multiple') {
+                // Check if all correct answers are selected
+                const allCorrectSelected = item.correct.every(correctIndex => answer.selected.includes(correctIndex));
+                const noIncorrectSelected = answer.selected.every(selectedIndex => item.correct.includes(selectedIndex));
+                const isComplete = answer.selected.length === (item.correctAnswers || 1);
+                isCorrect = allCorrectSelected && noIncorrectSelected && isComplete;
+            } else {
+                // Single choice
+                isCorrect = answer.selected === item.correct;
+            }
+            
+            // Mark as evaluated and update counts
+            huntState.answers[itemId].correct = isCorrect;
+            huntState.answers[itemId].evaluated = true;
+            
+            if (isCorrect) {
+                huntState.correctCount++;
+                showCorrectFeedback(itemId);
+            } else {
+                huntState.incorrectCount++;
+                showIncorrectFeedback(itemId, item);
+            }
+            
+            saveState();
+            renderScavengerHunt();
+            updateProgress();
+            
+            // Continuously monitor and fix button colors
+            setTimeout(() => {
+                const button = document.getElementById(`submit-btn-${itemId}`);
+                if (button) {
+                    if (button.disabled) {
+                        button.style.setProperty('background-color', '#6b7280', 'important');
+                        button.style.setProperty('border-color', '#6b7280', 'important');
+                    } else {
+                        button.style.setProperty('background-color', '#0126a3', 'important');
+                        button.style.setProperty('border-color', '#0126a3', 'important');
+                    }
+                    button.style.setProperty('color', 'white', 'important');
+                }
+            }, 50);
+        }
+
+        // Show Correct Feedback
+        function showCorrectFeedback(itemId) {
+            const feedback = document.createElement('div');
+            feedback.className = 'correct-feedback';
+            feedback.innerHTML = `
+                <div class="feedback-content">
+                    <div class="feedback-icon">✅</div>
+                    <div class="feedback-text">Excellent! You got it right!</div>
+                </div>
+            `;
+            
+            feedback.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: var(--mcf-brand-green);
+                color: var(--mcf-brand-black);
+                padding: 1rem 1.5rem;
+                border-radius: var(--mcf-radius);
+                box-shadow: 0 4px 12px rgba(38, 224, 17, 0.3);
+                z-index: 1500;
+                animation: feedbackSlideIn 0.3s ease;
+            `;
+            
+            document.body.appendChild(feedback);
+            
+            setTimeout(() => {
+                if (feedback.parentElement) {
+                    feedback.remove();
+                }
+            }, 3000);
+        }
+
+        // Show Incorrect Feedback
+        function showIncorrectFeedback(itemId, item) {
+            const feedback = document.createElement('div');
+            feedback.className = 'incorrect-feedback';
+            feedback.innerHTML = `
+                <div class="feedback-content">
+                    <div class="feedback-icon">❌</div>
+                    <div class="feedback-text">Not quite right, but you're learning!</div>
+                    <div class="feedback-hint">💡 Hint: ${getHintForQuestion(itemId)}</div>
+                </div>
+            `;
+            
+            feedback.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: var(--mcf-destructive);
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: var(--mcf-radius);
+                box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+                z-index: 1500;
+                animation: feedbackSlideIn 0.3s ease;
+                max-width: 300px;
+            `;
+            
+            document.body.appendChild(feedback);
+            
+            setTimeout(() => {
+                if (feedback.parentElement) {
+                    feedback.remove();
+                }
+            }, 5000);
+        }
+
+        // Get Hint for Question
+        function getHintForQuestion(itemId) {
+            const hints = {
+                1: "Look for the line that shows income after certain deductions but before itemized deductions.",
+                2: "This is the actual amount you paid, not what was withheld from your paycheck.",
+                3: "This box shows your total wages before any taxes or deductions are taken out.",
+                4: "This is the net amount after business expenses are subtracted from gross receipts.",
+                5: "AGI is calculated after certain adjustments to your gross income."
+            };
+            return hints[itemId] || "Think about what information FAFSA needs most.";
+        }
+
+        // Update Progress
+        function updateProgress() {
+            const total = huntData.length;
+            const answered = Object.keys(huntState.answers).length;
+            const percentage = Math.round((answered / total) * 100);
+            
+            document.getElementById('correct-count').textContent = huntState.correctCount;
+            document.getElementById('incorrect-count').textContent = huntState.incorrectCount;
+            document.getElementById('remaining-count').textContent = total - answered;
+            document.getElementById('progress-bar').style.width = `${percentage}%`;
+            document.getElementById('progress-percentage').textContent = `${percentage}% Complete`;
+            
+            // Check if hunt is complete
+            if (answered === total) {
+                showCompletionCelebration();
+            }
+        }
+
+        // Show Completion Celebration
+        function showCompletionCelebration() {
+            const celebration = document.createElement('div');
+            celebration.className = 'completion-celebration';
+            celebration.innerHTML = `
+                <div class="celebration-content">
+                    <div class="celebration-icon">🎉</div>
+                    <h3 class="celebration-title">Congratulations!</h3>
+                    <p class="celebration-message">You've completed the Tax Forms Scavenger Hunt!</p>
+                    <div class="celebration-stats">
+                        <div class="stat">
+                            <span class="stat-number">${huntState.correctCount}</span>
+                            <span class="stat-label">Correct</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">${Math.round((huntState.correctCount / huntData.length) * 100)}%</span>
+                            <span class="stat-label">Accuracy</span>
+                        </div>
+                    </div>
+                    <div class="celebration-actions">
+                        <button class="mcf-btn mcf-btn-primary" onclick="this.parentElement.parentElement.parentElement.remove()">
+                            Continue Learning
+                        </button>
+                        <button class="mcf-btn mcf-btn-success" onclick="saveAndDownload(this); this.parentElement.parentElement.parentElement.remove();">
+                            Download Results
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            // Add celebration styles
+            celebration.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 2000;
+                animation: celebrationFadeIn 0.5s ease;
+            `;
+            
+            const style = document.createElement('style');
+            style.textContent = `
+                .completion-celebration .celebration-content {
+                    background: var(--mcf-card);
+                    border: 3px solid var(--mcf-brand-green);
+                    border-radius: calc(var(--mcf-radius) * 2);
+                    padding: 3rem;
+                    text-align: center;
+                    max-width: 500px;
+                    margin: 2rem;
+                    animation: celebrationBounce 0.6s ease;
+                }
+                .completion-celebration .celebration-icon {
+                    font-size: 4rem;
+                    margin-bottom: 1rem;
+                    animation: celebrationSpin 1s ease-in-out;
+                }
+                .completion-celebration .celebration-title {
+                    font-size: 2rem;
+                    color: var(--mcf-brand-green);
+                    margin-bottom: 1rem;
+                }
+                .completion-celebration .celebration-message {
+                    color: var(--mcf-muted-foreground);
+                    margin-bottom: 2rem;
+                }
+                .completion-celebration .celebration-stats {
+                    display: flex;
+                    justify-content: center;
+                    gap: 2rem;
+                    margin-bottom: 2rem;
+                }
+                .completion-celebration .stat {
+                    text-align: center;
+                }
+                .completion-celebration .stat-number {
+                    display: block;
+                    font-size: 2rem;
+                    font-weight: bold;
+                    color: var(--mcf-brand-blue);
+                }
+                .completion-celebration .stat-label {
+                    font-size: 0.875rem;
+                    color: var(--mcf-muted-foreground);
+                }
+                .completion-celebration .celebration-actions {
+                    display: flex;
+                    gap: 1rem;
+                    justify-content: center;
+                    flex-wrap: wrap;
+                }
+                @keyframes celebrationFadeIn {
+                    from { opacity: 0; }
+                    to { opacity: 1; }
+                }
+                @keyframes celebrationBounce {
+                    0% { transform: scale(0.8); }
+                    50% { transform: scale(1.05); }
+                    100% { transform: scale(1); }
+                }
+                @keyframes celebrationSpin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            document.body.appendChild(celebration);
+            
+            // Auto-remove after 10 seconds
+            setTimeout(() => {
+                if (celebration.parentElement) {
+                    celebration.remove();
+                }
+            }, 10000);
+        }
+
+        // Setup Tax Form Interactions
+        function setupTaxFormInteractions() {
+            const highlights = document.querySelectorAll('.interactive-highlight');
+            highlights.forEach(highlight => {
+                // Click interaction
+                highlight.addEventListener('click', function() {
+                    const info = this.getAttribute('data-info');
+                    showTaxFormInfo(info);
+                });
+                
+                // Keyboard interaction
+                highlight.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        const info = this.getAttribute('data-info');
+                        showTaxFormInfo(info);
+                    }
+                });
+                
+                // Hover effects
+                highlight.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.02)';
+                    this.style.boxShadow = '0 4px 12px rgba(1, 38, 153, 0.2)';
+                });
+                
+                highlight.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                    this.style.boxShadow = 'none';
+                });
+                
+                // Make focusable
+                highlight.setAttribute('tabindex', '0');
+                highlight.setAttribute('role', 'button');
+                highlight.setAttribute('aria-label', `Learn about ${highlight.getAttribute('data-info')}`);
+            });
+        }
+
+        // Show Tax Form Info
+        function showTaxFormInfo(info) {
+            const infoMap = {
+                'wages': 'This is where you report wages from W-2 forms. Add up all Box 1 amounts from your W-2s.',
+                'agi': 'This is your Adjusted Gross Income (AGI) - the most important number for FAFSA. It\'s your income after certain deductions.',
+                'federal-tax-paid': 'This is the actual federal income tax you paid, which may differ from what was withheld from your paychecks.',
+                'interest': 'Interest income from bank accounts, bonds, or other investments.',
+                'dividends': 'Dividend income from stocks or mutual funds.',
+                'tax': 'Your calculated tax liability before credits and payments.',
+                'wages-2': 'Additional wages if you have multiple W-2 forms.'
+            };
+            
+            const explanation = infoMap[info] || 'Click on different areas to learn about tax form sections.';
+            
+            // Create a more interactive tooltip instead of alert
+            showInteractiveTooltip(explanation, info);
+        }
+
+        // Show Interactive Tooltip
+        function showInteractiveTooltip(text, info) {
+            // Remove existing tooltip
+            const existingTooltip = document.querySelector('.tax-form-tooltip');
+            if (existingTooltip) {
+                existingTooltip.remove();
+            }
+
+            const tooltip = document.createElement('div');
+            tooltip.className = 'tax-form-tooltip';
+            tooltip.innerHTML = `
+                <div class="tooltip-content">
+                    <div class="tooltip-header">
+                        <strong>Tax Form Information</strong>
+                        <button class="tooltip-close" onclick="this.parentElement.parentElement.parentElement.remove()">×</button>
+                    </div>
+                    <div class="tooltip-body">${text}</div>
+                    <div class="tooltip-footer">
+                        <small>💡 Tip: This information is crucial for accurate FAFSA completion</small>
+                    </div>
+                </div>
+            `;
+            
+            // Add tooltip styles
+            tooltip.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: var(--mcf-card);
+                border: 2px solid var(--mcf-brand-blue);
+                border-radius: var(--mcf-radius);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                z-index: 1000;
+                max-width: 400px;
+                animation: tooltipFadeIn 0.3s ease;
+            `;
+            
+            // Add tooltip content styles
+            const style = document.createElement('style');
+            style.textContent = `
+                .tax-form-tooltip .tooltip-content {
+                    padding: 1.5rem;
+                }
+                .tax-form-tooltip .tooltip-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 1rem;
+                    color: var(--mcf-brand-blue);
+                    font-size: 1.125rem;
+                }
+                .tax-form-tooltip .tooltip-close {
+                    background: none;
+                    border: none;
+                    font-size: 1.5rem;
+                    cursor: pointer;
+                    color: var(--mcf-muted-foreground);
+                    padding: 0;
+                    width: 24px;
+                    height: 24px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                .tax-form-tooltip .tooltip-close:hover {
+                    color: var(--mcf-destructive);
+                }
+                .tax-form-tooltip .tooltip-body {
+                    color: var(--mcf-foreground);
+                    line-height: 1.6;
+                    margin-bottom: 1rem;
+                }
+                .tax-form-tooltip .tooltip-footer {
+                    color: var(--mcf-muted-foreground);
+                    font-size: 0.875rem;
+                }
+                @keyframes tooltipFadeIn {
+                    from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+                    to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            document.body.appendChild(tooltip);
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                if (tooltip.parentElement) {
+                    tooltip.remove();
+                }
+            }, 5000);
+        }
+
+        // Reset Hunt
+        function resetHunt() {
+            huntState = {
+                answers: {},
+                startTime: Date.now(),
+                correctCount: 0,
+                incorrectCount: 0
+            };
+            
+            localStorage.removeItem('mcf-tax-hunt-state');
+            renderScavengerHunt();
+            updateProgress();
+        }
+
+        // Save and Download PDF
+        function saveAndDownload(button) {
+            console.log('Starting PDF generation...');
+            
+            // Show loading state
+            const originalText = button.innerHTML;
+            button.innerHTML = '⏳ Generating PDF...';
+            button.disabled = true;
+            
+            waitForJsPDF(() => {
+                try {
+                    console.log('jsPDF loaded, creating PDF...');
+                    const { jsPDF } = window.jspdf;
+                    const doc = new jsPDF();
+                    
+                    // Add MCF branding with background
+                    try {
+                        doc.setFillColor(1, 38, 153);
+                        doc.rect(0, 0, 210, 50, 'F');
+                    } catch (e) {
+                        console.warn('Background fill failed:', e);
+                    }
+                    
+                    try {
+                        doc.setFontSize(20);
+                        doc.setTextColor(255, 255, 255);
+                        doc.text('MY COLLEGE FINANCE', 105, 18, { align: 'center' });
+                        
+                        doc.setFontSize(10);
+                        doc.text('EDUCATE • MOTIVATE • ELEVATE', 105, 28, { align: 'center' });
+                    } catch (e) {
+                        console.warn('Header text failed:', e);
+                        // Fallback without styling
+                        doc.setFontSize(16);
+                        doc.text('MY COLLEGE FINANCE', 105, 20, { align: 'center' });
+                    }
+                    
+                    // Add decorative line
+                    try {
+                        doc.setDrawColor(255, 255, 255);
+                        doc.setLineWidth(1);
+                        doc.line(20, 40, 190, 40);
+                    } catch (e) {
+                        console.warn('Decorative line failed:', e);
+                    }
+                    
+                    // Add title
+                    doc.setFontSize(18);
+                    doc.setTextColor(0, 0, 0);
+                    doc.text('Tax Forms Scavenger Hunt Results', 105, 60, { align: 'center' });
+                    
+                    doc.setFontSize(12);
+                    doc.setTextColor(100, 100, 100);
+                    doc.text(`Completed: ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}`, 105, 70, { align: 'center' });
+                    
+                    // Add results summary with better formatting
+                    let yPos = 85;
+                    doc.setFontSize(14);
+                    doc.setTextColor(0, 0, 0);
+                    doc.text('Your Results:', 20, yPos);
+                    yPos += 15;
+                    
+                    // Create a results box
+                    try {
+                        doc.setDrawColor(1, 38, 153);
+                        doc.setLineWidth(1);
+                        doc.rect(20, yPos - 5, 170, 40);
+                    } catch (e) {
+                        console.warn('Results box failed:', e);
+                    }
+                    
+                    doc.setFontSize(12);
+                    doc.setTextColor(0, 0, 0);
+                    doc.text(`Correct Answers: ${huntState.correctCount}/${huntData.length}`, 25, yPos + 8);
+                    doc.text(`Accuracy: ${Math.round((huntState.correctCount / huntData.length) * 100)}%`, 25, yPos + 18);
+                    doc.text(`Total Questions: ${huntData.length}`, 25, yPos + 28);
+                    
+                    yPos += 50;
+                    
+                    // Add detailed results
+                    doc.setFontSize(14);
+                    doc.text('Detailed Results:', 20, yPos);
+                    yPos += 15;
+                    
+                    huntData.forEach((item, index) => {
+                        if (yPos > 250) {
+                            doc.addPage();
+                            yPos = 20;
+                        }
+                        
+                        const answer = huntState.answers[item.id];
+                        const isCorrect = answer?.correct;
+                        const status = isCorrect ? '✓' : (answer ? '✗' : '○');
+                        
+                        // Question with proper text wrapping
+                        doc.setFontSize(11);
+                        doc.setTextColor(0, 0, 0);
+                        const questionText = `Question ${item.id}: ${item.question}`;
+                        const questionLines = doc.splitTextToSize(questionText, 170);
+                        doc.text(questionLines, 20, yPos);
+                        yPos += (questionLines.length * 5) + 5;
+                        
+                        // Status indicator
+                        doc.setFontSize(10);
+                        doc.setTextColor(isCorrect ? 34 : (answer ? 239 : 100), isCorrect ? 197 : (answer ? 68 : 100), isCorrect ? 94 : (answer ? 68 : 100));
+                        doc.text(`${status} Status: ${isCorrect ? 'Correct' : (answer ? 'Incorrect' : 'Not Answered')}`, 20, yPos);
+                        yPos += 8;
+                        
+                        if (answer) {
+                            // User's answer
+                            doc.setFontSize(10);
+                            doc.setTextColor(0, 0, 0);
+                            
+                            if (item.type === 'multiple') {
+                                // Multiple choice answers
+                                const userAnswers = answer.selected.map(index => item.options[index]).join(', ');
+                                const userAnswerText = `Your answers: ${userAnswers}`;
+                                const userAnswerLines = doc.splitTextToSize(userAnswerText, 160);
+                                doc.text(userAnswerLines, 25, yPos);
+                                yPos += (userAnswerLines.length * 5) + 5;
+                                
+                                // Correct answers
+                                const correctAnswers = item.correct.map(index => item.options[index]).join(', ');
+                                const correctAnswerText = `Correct answers: ${correctAnswers}`;
+                                const correctAnswerLines = doc.splitTextToSize(correctAnswerText, 160);
+                                doc.text(correctAnswerLines, 25, yPos);
+                                yPos += (correctAnswerLines.length * 5) + 5;
+                            } else {
+                                // Single choice answer
+                                const userAnswerText = `Your answer: ${item.options[answer.selected]}`;
+                                const userAnswerLines = doc.splitTextToSize(userAnswerText, 160);
+                                doc.text(userAnswerLines, 25, yPos);
+                                yPos += (userAnswerLines.length * 5) + 5;
+                                
+                                // Correct answer
+                                const correctAnswerText = `Correct answer: ${item.options[item.correct]}`;
+                                const correctAnswerLines = doc.splitTextToSize(correctAnswerText, 160);
+                                doc.text(correctAnswerLines, 25, yPos);
+                                yPos += (correctAnswerLines.length * 5) + 5;
+                            }
+                            
+                            // Explanation
+                            doc.setTextColor(100, 100, 100);
+                            const explanationText = `Explanation: ${item.explanation}`;
+                            const explanationLines = doc.splitTextToSize(explanationText, 160);
+                            doc.text(explanationLines, 25, yPos);
+                            yPos += (explanationLines.length * 5) + 10;
+                        } else {
+                            // Not answered
+                            doc.setFontSize(10);
+                            doc.setTextColor(100, 100, 100);
+                            doc.text('Status: Not answered', 25, yPos);
+                            yPos += 8;
+                            
+                            // Show what the correct answer would be
+                            doc.setTextColor(0, 0, 0);
+                            if (item.type === 'multiple') {
+                                const correctAnswers = item.correct.map(index => item.options[index]).join(', ');
+                                const correctAnswerText = `Correct answers: ${correctAnswers}`;
+                                const correctAnswerLines = doc.splitTextToSize(correctAnswerText, 160);
+                                doc.text(correctAnswerLines, 25, yPos);
+                                yPos += (correctAnswerLines.length * 5) + 5;
+                            } else {
+                                const correctAnswerText = `Correct answer: ${item.options[item.correct]}`;
+                                const correctAnswerLines = doc.splitTextToSize(correctAnswerText, 160);
+                                doc.text(correctAnswerLines, 25, yPos);
+                                yPos += (correctAnswerLines.length * 5) + 5;
+                            }
+                            
+                            // Show explanation
+                            doc.setTextColor(100, 100, 100);
+                            const explanationText = `Explanation: ${item.explanation}`;
+                            const explanationLines = doc.splitTextToSize(explanationText, 160);
+                            doc.text(explanationLines, 25, yPos);
+                            yPos += (explanationLines.length * 5) + 10;
+                        }
+                        
+                        // Add separator line
+                        if (index < huntData.length - 1) {
+                            try {
+                                doc.setDrawColor(200, 200, 200);
+                                doc.setLineWidth(0.5);
+                                doc.line(20, yPos, 190, yPos);
+                            } catch (e) {
+                                console.warn('Separator line failed:', e);
+                            }
+                            yPos += 10;
+                        }
+                    });
+                    
+                    // Add footer
+                    doc.setFontSize(8);
+                    doc.setTextColor(100, 100, 100);
+                    doc.text('© 2025 My College Finance. All rights reserved.', 105, 285, { align: 'center' });
+                    
+                    // Save the PDF
+                    console.log('PDF generated successfully, saving...');
+                    doc.save('MCF-Tax-Forms-Scavenger-Hunt-Results.pdf');
+                    console.log('PDF saved successfully!');
+                    
+                    // Show success message
+                    alert('PDF downloaded successfully! Check your downloads folder.');
+                } catch (error) {
+                    console.error('Error generating PDF:', error);
+                    alert('Error generating PDF: ' + error.message + '. Please try again.');
+                } finally {
+                    // Reset button
+                    button.innerHTML = originalText;
+                    button.disabled = false;
+                }
+            });
+        }
+
+        // Download Guide
+        function downloadGuide(button) {
+            console.log('Starting guide PDF generation...');
+            
+            // Show loading state
+            const originalText = button.innerHTML;
+            button.innerHTML = '⏳ Generating Guide...';
+            button.disabled = true;
+            
+            waitForJsPDF(() => {
+                try {
+                    console.log('jsPDF loaded, creating guide PDF...');
+                    const { jsPDF } = window.jspdf;
+                    const doc = new jsPDF();
+                    
+                    // Add MCF branding
+                    doc.setFontSize(20);
+                    doc.setTextColor(1, 38, 153);
+                    doc.text('MY COLLEGE FINANCE', 105, 20, { align: 'center' });
+                    
+                    doc.setFontSize(10);
+                    doc.setTextColor(100, 116, 139);
+                    doc.text('EDUCATE • MOTIVATE • ELEVATE', 105, 28, { align: 'center' });
+                    
+                    // Add title
+                    doc.setFontSize(16);
+                    doc.setTextColor(0, 0, 0);
+                    doc.text('Tax Forms Visual Guide', 105, 45, { align: 'center' });
+                    
+                    doc.setFontSize(10);
+                    doc.text(`Generated: ${new Date().toLocaleDateString()}`, 105, 55, { align: 'center' });
+                    
+                    // Add Form 1040 guide
+                    let yPos = 70;
+                    doc.setFontSize(14);
+                    doc.text('Form 1040 - Key Lines:', 20, yPos);
+                    yPos += 15;
+                    
+                    doc.setFontSize(10);
+                    doc.text('Line 11 - Adjusted Gross Income (AGI)', 20, yPos);
+                    doc.text('  Most important for FAFSA calculations', 25, yPos + 8);
+                    yPos += 20;
+                    
+                    doc.text('Line 24 - Federal Income Tax Paid', 20, yPos);
+                    doc.text('  Amount you actually paid in federal taxes', 25, yPos + 8);
+                    yPos += 20;
+                    
+                    doc.text('Line 1 - Wages, Salaries, Tips', 20, yPos);
+                    doc.text('  Total wages from all W-2 forms', 25, yPos + 8);
+                    yPos += 25;
+                    
+                    // Add W-2 guide
+                    doc.setFontSize(14);
+                    doc.text('W-2 Form - Key Boxes:', 20, yPos);
+                    yPos += 15;
+                    
+                    doc.setFontSize(10);
+                    doc.text('Box 1 - Wages, Tips, Other Compensation', 20, yPos);
+                    doc.text('  Your gross wages before taxes', 25, yPos + 8);
+                    yPos += 20;
+                    
+                    doc.text('Box 2 - Federal Income Tax Withheld', 20, yPos);
+                    doc.text('  Federal taxes withheld from your pay', 25, yPos + 8);
+                    yPos += 25;
+                    
+                    // Add Schedule C guide
+                    doc.setFontSize(14);
+                    doc.text('Schedule C - Self-Employment:', 20, yPos);
+                    yPos += 15;
+                    
+                    doc.setFontSize(10);
+                    doc.text('Line 31 - Net Profit or Loss', 20, yPos);
+                    doc.text('  Business income after expenses (for FAFSA)', 25, yPos + 8);
+                    yPos += 25;
+                    
+                    // Add common mistakes
+                    doc.setFontSize(14);
+                    doc.text('Common Mistakes to Avoid:', 20, yPos);
+                    yPos += 15;
+                    
+                    doc.setFontSize(10);
+                    doc.text('• Using W-2 Box 2 instead of 1040 Line 24', 20, yPos);
+                    yPos += 8;
+                    doc.text('• Confusing Gross Income with AGI', 20, yPos);
+                    yPos += 8;
+                    doc.text('• Missing Self-Employment Income', 20, yPos);
+                    
+                    // Add footer
+                    doc.setFontSize(8);
+                    doc.setTextColor(100, 100, 100);
+                    doc.text('© 2025 My College Finance. All rights reserved.', 105, 285, { align: 'center' });
+                    
+                    // Save the PDF
+                    console.log('Guide PDF generated successfully, saving...');
+                    doc.save('MCF-Tax-Forms-Visual-Guide.pdf');
+                    console.log('Guide PDF saved successfully!');
+                    
+                    // Show success message
+                    alert('Guide PDF downloaded successfully! Check your downloads folder.');
+                } catch (error) {
+                    console.error('Error generating guide PDF:', error);
+                    alert('Error generating guide PDF: ' + error.message + '. Please try again.');
+                } finally {
+                    // Reset button
+                    button.innerHTML = originalText;
+                    button.disabled = false;
+                }
+            });
+        }
+
+        // Save state to localStorage
+        function saveState() {
+            localStorage.setItem('mcf-tax-hunt-state', JSON.stringify(huntState));
+        }
+
+        // Load saved state
+        function loadSavedState() {
+            const saved = localStorage.getItem('mcf-tax-hunt-state');
+            if (saved) {
+                const state = JSON.parse(saved);
+                huntState = { ...huntState, ...state };
+            }
+        }
+
+        // Dark mode implementation
+        function initDarkMode() {
+            const currentTheme = localStorage.getItem('mcf-theme') || 'light';
+            if (currentTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+                updateThemeIcon(true);
+            }
+
+            const toggleDarkMode = () => {
+                const isDark = document.body.classList.toggle('dark-mode');
+                localStorage.setItem('mcf-theme', isDark ? 'dark' : 'light');
+                updateThemeIcon(isDark);
+            };
+
+            function updateThemeIcon(isDark) {
+                const sunIcons = document.querySelectorAll('.mcf-sun-icon');
+                const moonIcons = document.querySelectorAll('.mcf-moon-icon');
+                
+                sunIcons.forEach(icon => {
+                    icon.style.display = isDark ? 'none' : 'block';
+                });
+                
+                moonIcons.forEach(icon => {
+                    icon.style.display = isDark ? 'block' : 'none';
+                });
+            }
+
+            const toggleBtn = document.getElementById('mcf-theme-toggle');
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', toggleDarkMode);
+            }
+        }
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            initDarkMode();
+            initializeApp();
+        });
+    </script>
+</body>
+</html>
