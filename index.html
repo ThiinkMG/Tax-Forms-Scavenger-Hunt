@@ -32,6 +32,24 @@
             --mcf-ring: #09090b;
             --mcf-radius: 0.5rem;
             --mcf-transition: all 0.3s ease;
+
+            /* Touch Targets & Spacing */
+            --touch-target-min: 44px;
+            --touch-target-recommended: 48px;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 0.75rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-xxl: 3rem;
+
+            /* Typography Scale */
+            --font-base: 16px;
+            --font-sm: 0.875rem;
+            --font-md: 0.9375rem;
+            --font-lg: 1.125rem;
+            --font-xl: 1.25rem;
+            --font-xxl: 1.5rem;
         }
 
         /* Dark Mode Color Scheme */
@@ -145,8 +163,10 @@
             position: absolute;
             top: 0;
             right: 0;
-            width: 44px;
-            height: 44px;
+            width: 52px;
+            height: 52px;
+            min-width: var(--touch-target-recommended);
+            min-height: var(--touch-target-recommended);
             padding: 0;
             border: 2px solid var(--mcf-border);
             background: var(--mcf-card);
@@ -157,6 +177,8 @@
             justify-content: center;
             transition: var(--mcf-transition);
             color: var(--mcf-foreground);
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .mcf-theme-toggle:hover {
@@ -181,6 +203,7 @@
 
         .nav-tab {
             padding: 1rem 1.5rem;
+            min-height: var(--touch-target-recommended);
             background: transparent;
             border: none;
             border-bottom: 3px solid transparent;
@@ -190,6 +213,8 @@
             cursor: pointer;
             transition: var(--mcf-transition);
             font-family: inherit;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .nav-tab:hover {
@@ -367,6 +392,66 @@
         .hunt-item.completed {
             border-color: var(--mcf-brand-green);
             background: rgba(38, 224, 17, 0.05);
+            position: relative;
+        }
+
+        .treasure-found {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 2rem;
+            animation: treasureBounce 0.6s ease infinite alternate;
+        }
+
+        @keyframes treasureBounce {
+            from { transform: translateY(0) rotate(-10deg); }
+            to { transform: translateY(-10px) rotate(10deg); }
+        }
+
+        .hunt-item.found-animation {
+            animation: foundPulse 0.8s ease;
+        }
+
+        @keyframes foundPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 rgba(38, 224, 17, 0); }
+            50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(38, 224, 17, 0.6); }
+        }
+
+        .milestone-celebration {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, var(--mcf-brand-green), #1fb80d);
+            color: white;
+            padding: 2rem 3rem;
+            border-radius: calc(var(--mcf-radius) * 2);
+            box-shadow: 0 10px 40px rgba(38, 224, 17, 0.4);
+            z-index: 1500;
+            animation: milestonePop 0.6s ease;
+            text-align: center;
+        }
+
+        @keyframes milestonePop {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+            50% { transform: translate(-50%, -50%) scale(1.1); }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+
+        .confetti-particle {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: var(--mcf-brand-green);
+            animation: confettiFall 3s linear forwards;
+            z-index: 1400;
+        }
+
+        @keyframes confettiFall {
+            to {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
         }
 
         .hunt-question {
@@ -491,13 +576,17 @@
         }
         
         .checkbox-indicator {
-            font-size: 16px;
+            font-size: 18px;
+            font-weight: 700;
             color: #6b7280;
+            font-family: 'Courier New', monospace;
             transition: all 0.2s ease;
+            min-width: 30px;
+            display: inline-block;
         }
-        
+
         .multiple-options .hunt-option.selected .checkbox-indicator {
-            color: var(--mcf-blue);
+            color: #0126a3;
         }
         
         .multiple-options .hunt-option.selected {
@@ -678,6 +767,84 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* Game Stats Section */
+        .game-stats {
+            background: linear-gradient(135deg, var(--mcf-brand-blue), var(--mcf-primary));
+            border-radius: calc(var(--mcf-radius) * 1.5);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            color: white;
+            box-shadow: 0 4px 12px rgba(1, 38, 153, 0.3);
+        }
+
+        .stats-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .game-timer {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: var(--mcf-radius);
+            font-size: 1.25rem;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+        }
+
+        .points-display {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: var(--mcf-radius);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .achievements-bar {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .achievement-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: var(--mcf-radius);
+            font-size: 0.875rem;
+            transition: var(--mcf-transition);
+            border: 2px solid transparent;
+        }
+
+        .achievement-badge.earned {
+            background: var(--mcf-brand-green);
+            border-color: white;
+            animation: badgePop 0.5s ease;
+        }
+
+        .achievement-badge.locked {
+            opacity: 0.4;
+            filter: grayscale(1);
+        }
+
+        @keyframes badgePop {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
         /* Progress Tracking */
         .progress-section {
             background: var(--mcf-card);
@@ -762,6 +929,8 @@
             align-items: center;
             justify-content: center;
             padding: 0.75rem 1.5rem;
+            min-height: var(--touch-target-recommended);
+            min-width: var(--touch-target-recommended);
             font-size: 1rem;
             font-weight: 600;
             border-radius: var(--mcf-radius);
@@ -771,6 +940,8 @@
             text-decoration: none;
             font-family: inherit;
             gap: 0.5rem;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .mcf-btn-primary {
@@ -897,10 +1068,49 @@
             outline-offset: 2px;
         }
 
-        /* Responsive */
+        /* Accessibility - Focus Indicators */
+        button:focus-visible,
+        a:focus-visible,
+        .nav-tab:focus-visible,
+        .mcf-theme-toggle:focus-visible,
+        .hunt-option:focus-visible {
+            outline: 3px solid var(--mcf-brand-blue);
+            outline-offset: 2px;
+        }
+
+        /* Selection Styling */
+        ::selection {
+            background-color: var(--mcf-brand-blue);
+            color: white;
+        }
+
+        /* Reduce Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Tablet (768px - 1024px) */
+        @media (min-width: 768px) and (max-width: 1024px) {
+            body { font-size: 17px; }
+            .mcf-title { font-size: clamp(2rem, 4vw + 1rem, 2.5rem); }
+            .mcf-btn { min-height: 52px; }
+            .nav-tab { min-height: 52px; }
+        }
+
+        /* Mobile (≤768px) */
         @media (max-width: 768px) {
+            body { font-size: 16px; }
+
             .mcf-title {
-                font-size: 1.75rem;
+                font-size: clamp(1.5rem, 5vw + 0.5rem, 1.75rem);
+                hyphens: none;
+                word-break: normal;
             }
 
             .nav-tabs {
@@ -909,6 +1119,7 @@
 
             .nav-tab {
                 text-align: left;
+                min-height: 48px;
             }
 
             .hunt-options {
@@ -926,6 +1137,7 @@
 
             .mcf-btn {
                 width: 100%;
+                min-height: 48px;
             }
 
             .tax-form-paper {
@@ -939,6 +1151,272 @@
 
             .completion-celebration .celebration-actions {
                 flex-direction: column;
+            }
+
+            .stats-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .game-timer,
+            .points-display {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .achievements-bar {
+                justify-content: center;
+            }
+        }
+
+        /* Small Mobile (≤375px) */
+        @media (max-width: 375px) {
+            .mcf-container {
+                padding: 1.5rem 0.75rem;
+            }
+
+            .section-card {
+                padding: 1.5rem;
+            }
+
+            .achievement-badge {
+                font-size: 0.75rem;
+                padding: 0.4rem 0.8rem;
+            }
+        }
+
+        /* Print Stylesheet for PDF Export */
+        @media print {
+            /* Page setup */
+            @page {
+                size: letter;
+                margin: 0.75in;
+            }
+
+            /* Hide interactive elements */
+            .mcf-theme-toggle,
+            .nav-tabs,
+            button,
+            .action-buttons,
+            .mcf-btn,
+            .game-timer,
+            .points-display,
+            .mcf-submit-button,
+            .submit-section {
+                display: none !important;
+            }
+
+            /* Typography for print */
+            body {
+                font-size: 11pt !important;
+                font-family: "Times New Roman", Times, serif !important;
+                line-height: 1.4 !important;
+                color: #000 !important;
+                background: white !important;
+            }
+
+            /* Headings */
+            h1, .mcf-title {
+                font-size: 18pt !important;
+                color: #012699 !important;
+                page-break-after: avoid;
+            }
+
+            h2, .section-title {
+                font-size: 14pt !important;
+                color: #012699 !important;
+                page-break-after: avoid;
+                margin-top: 12pt;
+            }
+
+            h3 {
+                font-size: 12pt !important;
+                page-break-after: avoid;
+            }
+
+            /* Show all tab content */
+            .tab-content {
+                display: block !important;
+                page-break-before: always;
+            }
+
+            .tab-content:first-of-type {
+                page-break-before: auto;
+            }
+
+            /* Container */
+            .mcf-container {
+                max-width: 100% !important;
+                padding: 0 !important;
+            }
+
+            /* Cards and sections */
+            .section-card,
+            .hunt-item,
+            .progress-section,
+            .game-stats {
+                background: white !important;
+                border: 1px solid #333 !important;
+                border-radius: 0 !important;
+                box-shadow: none !important;
+                page-break-inside: avoid;
+                margin-bottom: 12pt !important;
+                padding: 12pt !important;
+            }
+
+            /* Game stats for print */
+            .game-stats {
+                background: #f0f0f0 !important;
+            }
+
+            .achievements-bar {
+                display: flex !important;
+                flex-wrap: wrap !important;
+            }
+
+            .achievement-badge {
+                border: 1px solid #333 !important;
+                background: white !important;
+                color: #000 !important;
+                padding: 4pt 8pt !important;
+                margin: 2pt !important;
+            }
+
+            .achievement-badge.earned {
+                background: #e0e0e0 !important;
+                font-weight: bold !important;
+            }
+
+            /* Hunt items for print */
+            .hunt-question {
+                font-weight: bold !important;
+                color: #000 !important;
+                margin-bottom: 8pt !important;
+            }
+
+            .hunt-description {
+                color: #333 !important;
+                margin-bottom: 8pt !important;
+            }
+
+            .hunt-options {
+                margin-bottom: 8pt !important;
+            }
+
+            .hunt-option {
+                border: 1px solid #333 !important;
+                background: white !important;
+                color: #000 !important;
+                padding: 6pt !important;
+                margin: 4pt 0 !important;
+            }
+
+            .hunt-option.correct,
+            .hunt-option.correct-option {
+                background: #d4edda !important;
+                border-color: #28a745 !important;
+                font-weight: bold !important;
+            }
+
+            .hunt-option.selected {
+                background: #e7f3ff !important;
+                border-color: #012699 !important;
+            }
+
+            .hunt-option.incorrect {
+                background: #f8d7da !important;
+                border-color: #dc3545 !important;
+            }
+
+            /* Feedback for print */
+            .hunt-feedback {
+                display: block !important;
+                border: 1px solid #333 !important;
+                background: #f9f9f9 !important;
+                color: #000 !important;
+                padding: 8pt !important;
+                margin-top: 8pt !important;
+            }
+
+            .hunt-feedback.correct {
+                border-color: #28a745 !important;
+                background: #d4edda !important;
+            }
+
+            .hunt-feedback.incorrect {
+                border-color: #dc3545 !important;
+                background: #f8d7da !important;
+            }
+
+            /* Progress section */
+            .progress-stats {
+                display: flex !important;
+                gap: 12pt !important;
+            }
+
+            .stat-item {
+                color: #000 !important;
+            }
+
+            .progress-bar-container {
+                height: 8pt !important;
+                background: #e0e0e0 !important;
+                border: 1px solid #333 !important;
+            }
+
+            .progress-bar {
+                background: #012699 !important;
+            }
+
+            /* Tax forms for print */
+            .tax-form-paper {
+                background: white !important;
+                border: 2px solid #000 !important;
+                padding: 12pt !important;
+                page-break-inside: avoid;
+            }
+
+            .tax-form-header {
+                border-bottom: 2px solid #000 !important;
+            }
+
+            /* Links */
+            a {
+                color: #000 !important;
+                text-decoration: underline !important;
+            }
+
+            a[href^="http"]:after {
+                content: " (" attr(href) ")";
+                font-size: 9pt;
+                font-style: italic;
+            }
+
+            /* Footer */
+            .mcf-footer {
+                page-break-before: avoid;
+                margin-top: 24pt !important;
+                padding-top: 12pt !important;
+                border-top: 1px solid #333 !important;
+            }
+
+            /* Hide decorative elements */
+            .treasure-found,
+            .confetti-particle,
+            .milestone-celebration {
+                display: none !important;
+            }
+
+            /* Page breaks */
+            .section-card,
+            .hunt-item {
+                page-break-inside: avoid;
+            }
+
+            /* Ensure proper spacing */
+            p, li {
+                orphans: 3;
+                widows: 3;
             }
         }
     </style>
@@ -1020,10 +1498,43 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Start Scavenger Hunt CTA -->
+            <div class="section-card" style="text-align: center; background: linear-gradient(135deg, rgba(1, 38, 153, 0.05), rgba(51, 107, 255, 0.05)); border: 2px solid var(--mcf-brand-blue);">
+                <h2 class="section-title" style="justify-content: center;">🎮 Ready to Test Your Knowledge?</h2>
+                <p style="font-size: 1.125rem; margin-bottom: 2rem; color: var(--mcf-muted-foreground);">
+                    Put your tax form knowledge to the test with our interactive scavenger hunt!
+                    Earn points, unlock achievements, and master the essential information you need for FAFSA.
+                </p>
+                <button class="mcf-btn mcf-btn-primary" onclick="startScavengerHunt()" style="font-size: 1.125rem; padding: 1rem 2rem; box-shadow: 0 4px 12px rgba(1, 38, 153, 0.3);">
+                    🔍 Start Scavenger Hunt
+                </button>
+                <div style="margin-top: 1rem; font-size: 0.875rem; color: var(--mcf-muted-foreground);">
+                    <strong>6 questions</strong> • <strong>Earn up to 900+ points</strong> • <strong>5 achievements to unlock</strong>
+                </div>
+            </div>
         </div>
 
         <!-- Scavenger Hunt Tab -->
         <div id="scavenger-hunt" class="tab-content">
+            <!-- Game Stats Section -->
+            <div class="game-stats">
+                <div class="stats-header">
+                    <div class="game-timer">
+                        <span>⏱️</span>
+                        <span id="game-timer">00:00</span>
+                    </div>
+                    <div class="points-display">
+                        <span>🏆</span>
+                        <span id="points-display">0</span>
+                        <span style="font-size: 0.875rem;">pts</span>
+                    </div>
+                </div>
+                <div class="achievements-bar" id="achievements-bar">
+                    <!-- Achievements will be populated by JavaScript -->
+                </div>
+            </div>
+
             <!-- Progress Section -->
             <div class="progress-section">
                 <div class="progress-header">
@@ -1039,7 +1550,7 @@
                         </div>
                         <div class="stat-item">
                             <div class="stat-icon stat-remaining">?</div>
-                            <span id="remaining-count">5</span> Remaining
+                            <span id="remaining-count">6</span> Remaining
                         </div>
                     </div>
                 </div>
@@ -1331,13 +1842,27 @@
             }
         ];
 
+        // Game Achievements
+        const achievements = [
+            { id: 'first-treasure', name: 'First Treasure', icon: '💎', description: 'Find your first correct answer', earned: false },
+            { id: 'speed-demon', name: 'Speed Demon', icon: '⚡', description: 'Answer correctly in under 10 seconds', earned: false },
+            { id: 'perfect-score', name: 'Perfect Score', icon: '🌟', description: 'Get all answers correct', earned: false },
+            { id: 'hat-trick', name: 'Hat Trick', icon: '🎯', description: 'Get 3 correct in a row', earned: false },
+            { id: 'quick-learner', name: 'Quick Learner', icon: '🧠', description: 'Complete hunt in under 5 minutes', earned: false }
+        ];
+
         // Application State
         let huntState = {
             answers: {},
             startTime: Date.now(),
             correctCount: 0,
-            incorrectCount: 0
+            incorrectCount: 0,
+            points: 0,
+            consecutiveCorrect: 0,
+            achievements: [...achievements]
         };
+
+        let gameTimer = null;
 
         // Initialize the application
         function initializeApp() {
@@ -1345,7 +1870,9 @@
             renderScavengerHunt();
             setupTaxFormInteractions();
             updateProgress();
-            
+            startGameTimer();
+            renderAchievements();
+
             // Continuous button color monitoring
             setInterval(() => {
                 const buttons = document.querySelectorAll('.mcf-submit-button');
@@ -1362,23 +1889,242 @@
             }, 100);
         }
 
+        // Start Game Timer
+        function startGameTimer() {
+            if (gameTimer) clearInterval(gameTimer);
+
+            gameTimer = setInterval(() => {
+                const elapsed = Math.floor((Date.now() - huntState.startTime) / 1000);
+                const minutes = Math.floor(elapsed / 60);
+                const seconds = elapsed % 60;
+                document.getElementById('game-timer').textContent =
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+
+        // Calculate Points
+        function calculatePoints(isCorrect, timeTaken) {
+            if (!isCorrect) return 0;
+
+            let points = 100; // Base points for correct answer
+
+            // Time bonus (faster = more points)
+            if (timeTaken < 10) {
+                points += 50; // Speed bonus
+            } else if (timeTaken < 30) {
+                points += 25; // Quick bonus
+            }
+
+            // Consecutive correct bonus
+            if (huntState.consecutiveCorrect >= 2) {
+                points += huntState.consecutiveCorrect * 10; // Streak bonus
+            }
+
+            return points;
+        }
+
+        // Check and Award Achievements
+        function checkAchievements(isCorrect, timeTaken) {
+            let newAchievements = [];
+
+            // First Treasure
+            if (isCorrect && huntState.correctCount === 1) {
+                const achievement = huntState.achievements.find(a => a.id === 'first-treasure');
+                if (achievement && !achievement.earned) {
+                    achievement.earned = true;
+                    newAchievements.push(achievement);
+                }
+            }
+
+            // Speed Demon
+            if (isCorrect && timeTaken < 10) {
+                const achievement = huntState.achievements.find(a => a.id === 'speed-demon');
+                if (achievement && !achievement.earned) {
+                    achievement.earned = true;
+                    newAchievements.push(achievement);
+                }
+            }
+
+            // Hat Trick
+            if (huntState.consecutiveCorrect >= 3) {
+                const achievement = huntState.achievements.find(a => a.id === 'hat-trick');
+                if (achievement && !achievement.earned) {
+                    achievement.earned = true;
+                    newAchievements.push(achievement);
+                }
+            }
+
+            // Perfect Score (check at end)
+            const answered = Object.keys(huntState.answers).length;
+            if (answered === huntData.length && huntState.correctCount === huntData.length) {
+                const achievement = huntState.achievements.find(a => a.id === 'perfect-score');
+                if (achievement && !achievement.earned) {
+                    achievement.earned = true;
+                    newAchievements.push(achievement);
+                }
+            }
+
+            // Quick Learner
+            const elapsed = Math.floor((Date.now() - huntState.startTime) / 1000);
+            if (answered === huntData.length && elapsed < 300) { // 5 minutes
+                const achievement = huntState.achievements.find(a => a.id === 'quick-learner');
+                if (achievement && !achievement.earned) {
+                    achievement.earned = true;
+                    newAchievements.push(achievement);
+                }
+            }
+
+            // Show achievement notifications
+            newAchievements.forEach(achievement => {
+                showAchievementNotification(achievement);
+            });
+
+            renderAchievements();
+        }
+
+        // Render Achievements
+        function renderAchievements() {
+            const container = document.getElementById('achievements-bar');
+            container.innerHTML = huntState.achievements.map(achievement => {
+                const earnedClass = achievement.earned ? 'earned' : 'locked';
+                return `
+                    <div class="achievement-badge ${earnedClass}" title="${achievement.description}">
+                        <span>${achievement.icon}</span>
+                        <span>${achievement.name}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Show Achievement Notification
+        function showAchievementNotification(achievement) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: linear-gradient(135deg, var(--mcf-brand-green), #1fb80d);
+                color: white;
+                padding: 1.5rem 2rem;
+                border-radius: var(--mcf-radius);
+                box-shadow: 0 10px 30px rgba(38, 224, 17, 0.4);
+                z-index: 2000;
+                animation: slideInRight 0.5s ease;
+                font-weight: 600;
+            `;
+
+            notification.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <div style="font-size: 2.5rem;">${achievement.icon}</div>
+                    <div>
+                        <div style="font-size: 1.125rem;">Achievement Unlocked!</div>
+                        <div style="font-size: 0.875rem; opacity: 0.9;">${achievement.name}</div>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(notification);
+
+            // Add confetti
+            createConfetti();
+
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 4000);
+        }
+
+        // Create Confetti
+        function createConfetti() {
+            const colors = ['#012699', '#26e011', '#fdc003', '#336bff'];
+            for (let i = 0; i < 30; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti-particle';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = '-10px';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                document.body.appendChild(confetti);
+
+                setTimeout(() => confetti.remove(), 5000);
+            }
+        }
+
+        // Add slide in animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from {
+                    transform: translateX(400px);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
         // Tab Navigation
         function showTab(tabId) {
             // Hide all tab contents
             document.querySelectorAll('.tab-content').forEach(tab => {
                 tab.classList.remove('active');
             });
-            
+
             // Remove active class from all tabs
             document.querySelectorAll('.nav-tab').forEach(tab => {
                 tab.classList.remove('active');
             });
-            
+
             // Show selected tab content
             document.getElementById(tabId).classList.add('active');
-            
+
             // Add active class to clicked tab
-            event.target.classList.add('active');
+            if (event && event.target) {
+                event.target.classList.add('active');
+            } else {
+                // If no event (called programmatically), find and activate the tab
+                document.querySelectorAll('.nav-tab').forEach(tab => {
+                    if (tab.textContent.toLowerCase().includes(tabId.replace('-', ' '))) {
+                        tab.classList.add('active');
+                    }
+                });
+            }
+        }
+
+        // Start Scavenger Hunt - switches to scavenger hunt tab
+        function startScavengerHunt() {
+            // Switch to scavenger hunt tab
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show scavenger hunt tab
+            document.getElementById('scavenger-hunt').classList.add('active');
+
+            // Activate scavenger hunt nav tab
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                if (tab.getAttribute('onclick') && tab.getAttribute('onclick').includes('scavenger-hunt')) {
+                    tab.classList.add('active');
+                }
+            });
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Show a brief welcome animation
+            const gameStats = document.querySelector('.game-stats');
+            if (gameStats) {
+                gameStats.style.animation = 'fadeIn 0.6s ease';
+            }
         }
 
         // Render Scavenger Hunt
@@ -1397,6 +2143,9 @@
                 if (isAnswered) {
                     huntItem.classList.add('completed');
                 }
+
+                // Add treasure icon for correct answers
+                const treasureIcon = isCorrect ? '<div class="treasure-found">🏆</div>' : '';
                 
                 // Check if this is a multiple choice question
                 const isMultiple = item.type === 'multiple';
@@ -1404,6 +2153,7 @@
                 const currentSelections = isAnswered && isAnswered.selected ? isAnswered.selected : [];
                 
                 huntItem.innerHTML = `
+                    ${treasureIcon}
                     <div class="hunt-question">
                         ${item.question}
                         ${isMultiple ? `<div class="multiple-choice-header">
@@ -1445,7 +2195,7 @@
                             }
                             
                             return `<div class="${optionClass}" onclick="selectAnswer(${item.id}, ${index})">
-                                ${isMultiple ? `<span class="checkbox-indicator">${currentSelections.includes(index) ? '☑' : '☐'}</span>` : ''}
+                                ${isMultiple ? `<span class="checkbox-indicator">${currentSelections.includes(index) ? '[X]' : '[ ]'}</span>` : ''}
                                 <span class="option-text">${option}</span>
                             </div>`;
                         }).join('')}
@@ -1618,12 +2368,33 @@
             // Mark as evaluated and update counts
             huntState.answers[itemId].correct = isCorrect;
             huntState.answers[itemId].evaluated = true;
-            
+
+            // Calculate time taken
+            const timeTaken = Math.floor((Date.now() - answer.timestamp) / 1000);
+
             if (isCorrect) {
                 huntState.correctCount++;
-                showCorrectFeedback(itemId);
+                huntState.consecutiveCorrect++;
+
+                // Award points
+                const points = calculatePoints(isCorrect, timeTaken);
+                huntState.points += points;
+                document.getElementById('points-display').textContent = huntState.points;
+
+                // Show found animation
+                const huntItemElement = document.getElementById(`hunt-item-${itemId}`);
+                if (huntItemElement) {
+                    huntItemElement.classList.add('found-animation');
+                    setTimeout(() => huntItemElement.classList.remove('found-animation'), 800);
+                }
+
+                // Check achievements
+                checkAchievements(isCorrect, timeTaken);
+
+                showCorrectFeedback(itemId, points);
             } else {
                 huntState.incorrectCount++;
+                huntState.consecutiveCorrect = 0; // Reset streak
                 showIncorrectFeedback(itemId, item);
             }
             
@@ -1648,13 +2419,14 @@
         }
 
         // Show Correct Feedback
-        function showCorrectFeedback(itemId) {
+        function showCorrectFeedback(itemId, points) {
             const feedback = document.createElement('div');
             feedback.className = 'correct-feedback';
             feedback.innerHTML = `
                 <div class="feedback-content">
                     <div class="feedback-icon">✅</div>
                     <div class="feedback-text">Excellent! You got it right!</div>
+                    <div class="feedback-text" style="color: var(--mcf-brand-amber); font-weight: 700;">+${points} points</div>
                 </div>
             `;
             
@@ -2022,12 +2794,18 @@
                 answers: {},
                 startTime: Date.now(),
                 correctCount: 0,
-                incorrectCount: 0
+                incorrectCount: 0,
+                points: 0,
+                consecutiveCorrect: 0,
+                achievements: [...achievements]
             };
-            
+
             localStorage.removeItem('mcf-tax-hunt-state');
+            document.getElementById('points-display').textContent = '0';
             renderScavengerHunt();
+            renderAchievements();
             updateProgress();
+            startGameTimer();
         }
 
         // Save and Download PDF
@@ -2059,7 +2837,7 @@
                         doc.text('MY COLLEGE FINANCE', 105, 18, { align: 'center' });
                         
                         doc.setFontSize(10);
-                        doc.text('EDUCATE • MOTIVATE • ELEVATE', 105, 28, { align: 'center' });
+                        doc.text('EDUCATE - MOTIVATE - ELEVATE', 105, 28, { align: 'center' });
                     } catch (e) {
                         console.warn('Header text failed:', e);
                         // Fallback without styling
@@ -2122,7 +2900,7 @@
                         
                         const answer = huntState.answers[item.id];
                         const isCorrect = answer?.correct;
-                        const status = isCorrect ? '✓' : (answer ? '✗' : '○');
+                        const status = isCorrect ? '[X]' : (answer ? '[ ]' : '[?]');
                         
                         // Question with proper text wrapping
                         doc.setFontSize(11);
@@ -2246,102 +3024,190 @@
         // Download Guide
         function downloadGuide(button) {
             console.log('Starting guide PDF generation...');
-            
+
             // Show loading state
             const originalText = button.innerHTML;
             button.innerHTML = '⏳ Generating Guide...';
             button.disabled = true;
-            
+
             waitForJsPDF(() => {
                 try {
                     console.log('jsPDF loaded, creating guide PDF...');
                     const { jsPDF } = window.jspdf;
                     const doc = new jsPDF();
-                    
-                    // Add MCF branding
+
+                    // Add MCF branding header
                     doc.setFontSize(20);
                     doc.setTextColor(1, 38, 153);
                     doc.text('MY COLLEGE FINANCE', 105, 20, { align: 'center' });
-                    
+
                     doc.setFontSize(10);
                     doc.setTextColor(100, 116, 139);
-                    doc.text('EDUCATE • MOTIVATE • ELEVATE', 105, 28, { align: 'center' });
-                    
+                    doc.text('EDUCATE - MOTIVATE - ELEVATE', 105, 28, { align: 'center' });
+
                     // Add title
                     doc.setFontSize(16);
                     doc.setTextColor(0, 0, 0);
-                    doc.text('Tax Forms Visual Guide', 105, 45, { align: 'center' });
-                    
-                    doc.setFontSize(10);
-                    doc.text(`Generated: ${new Date().toLocaleDateString()}`, 105, 55, { align: 'center' });
-                    
-                    // Add Form 1040 guide
-                    let yPos = 70;
+                    doc.text('Tax Form Visual Guide', 105, 45, { align: 'center' });
+
+                    doc.setFontSize(9);
+                    doc.setTextColor(120, 120, 120);
+                    doc.text('Comprehensive visual guide to understanding tax forms and locating key information for FAFSA completion', 105, 52, { align: 'center' });
+
+                    let yPos = 65;
+
+                    // Helper function to draw a full-width colored card
+                    function drawCard(y, color, title, items) {
+                        const cardX = 20;
+                        const cardWidth = 170;
+                        const headerHeight = 11;
+                        const itemHeight = 14;
+                        const cardHeight = headerHeight + (items.length * itemHeight) + 4;
+
+                        // Draw colored header background
+                        doc.setFillColor(color.r, color.g, color.b);
+                        doc.roundedRect(cardX, y, cardWidth, headerHeight, 3, 3, 'F');
+
+                        // Draw main card background (light)
+                        doc.setFillColor(250, 250, 250);
+                        doc.rect(cardX, y + headerHeight, cardWidth, cardHeight - headerHeight, 'F');
+
+                        // Draw card border
+                        doc.setDrawColor(color.r, color.g, color.b);
+                        doc.setLineWidth(2);
+                        doc.roundedRect(cardX, y, cardWidth, cardHeight, 3, 3);
+
+                        // Draw title in header
+                        doc.setFontSize(11);
+                        doc.setTextColor(255, 255, 255);
+                        doc.setFont(undefined, 'bold');
+                        doc.text(title, cardX + 4, y + 7.5);
+
+                        // Draw each item
+                        let itemY = y + headerHeight + 4.5;
+                        items.forEach(item => {
+                            // Item background
+                            doc.setFillColor(255, 255, 255);
+                            doc.roundedRect(cardX + 3, itemY - 2.5, cardWidth - 6, itemHeight - 1.5, 2, 2, 'F');
+
+                            // Item border
+                            doc.setDrawColor(230, 230, 230);
+                            doc.setLineWidth(0.5);
+                            doc.roundedRect(cardX + 3, itemY - 2.5, cardWidth - 6, itemHeight - 1.5, 2, 2);
+
+                            // Item label (bold)
+                            doc.setFontSize(9);
+                            doc.setTextColor(0, 0, 0);
+                            doc.setFont(undefined, 'bold');
+                            const labelLines = doc.splitTextToSize(item.label, cardWidth - 12);
+                            doc.text(labelLines, cardX + 5, itemY + 1);
+
+                            // Item description (normal)
+                            doc.setFontSize(8);
+                            doc.setTextColor(100, 100, 100);
+                            doc.setFont(undefined, 'normal');
+                            const descLines = doc.splitTextToSize(item.description, cardWidth - 12);
+                            doc.text(descLines, cardX + 5, itemY + 5);
+
+                            itemY += itemHeight;
+                        });
+
+                        return cardHeight + 5; // Return card height + spacing
+                    }
+
+                    // Form 1040 Card (Blue)
+                    const blueColor = { r: 1, g: 38, b: 153 };
+                    const form1040Items = [
+                        { label: 'Line 11 - Adjusted Gross Income (AGI)', description: 'Most important for FAFSA - this is your AGI' },
+                        { label: 'Line 24 - Federal Income Tax Paid', description: 'Amount you actually paid in federal taxes' },
+                        { label: 'Line 1 - Wages, Salaries, Tips', description: 'Total wages from all W-2 forms' }
+                    ];
+                    yPos += drawCard(yPos, blueColor, 'Form 1040 - Key Lines', form1040Items);
+
+                    // W-2 Form Card (Green)
+                    const greenColor = { r: 34, g: 197, b: 94 };
+                    const w2Items = [
+                        { label: 'Box 1 - Wages, Tips, Other Compensation', description: 'Your gross wages before taxes' },
+                        { label: 'Box 2 - Federal Income Tax Withheld', description: 'Federal taxes withheld from your pay' },
+                        { label: 'Box 3 - Social Security Wages', description: 'Wages subject to Social Security tax' }
+                    ];
+                    yPos += drawCard(yPos, greenColor, 'W-2 Form - Key Boxes', w2Items);
+
+                    // Schedule C Card (Amber)
+                    const amberColor = { r: 253, g: 192, b: 3 };
+                    const scheduleCItems = [
+                        { label: 'Line 7 - Gross Receipts or Sales', description: 'Total business income before expenses' },
+                        { label: 'Line 31 - Net Profit or Loss', description: 'Business income after expenses (for FAFSA)' }
+                    ];
+                    yPos += drawCard(yPos, amberColor, 'Schedule C - Self-Employment', scheduleCItems);
+
+                    // Common Mistakes Card (Red)
+                    const redColor = { r: 239, g: 68, b: 68 };
+                    const mistakesItems = [
+                        { label: 'X Using W-2 Box 2 instead of 1040 Line 24', description: 'W-2 shows withholding, 1040 shows actual tax paid' },
+                        { label: 'X Confusing Gross Income with AGI', description: 'AGI (Line 11) is after deductions, not gross income' },
+                        { label: 'X Missing Self-Employment Income', description: 'Schedule C net profit must be included in FAFSA' }
+                    ];
+                    yPos += drawCard(yPos, redColor, 'Common Mistakes', mistakesItems);
+
+                    // Add new page for Important Tips
+                    doc.addPage();
+
+                    // Add MCF branding to second page
+                    doc.setFontSize(16);
+                    doc.setTextColor(1, 38, 153);
+                    doc.text('MY COLLEGE FINANCE', 105, 20, { align: 'center' });
+
+                    doc.setFontSize(9);
+                    doc.setTextColor(100, 116, 139);
+                    doc.text('EDUCATE - MOTIVATE - ELEVATE', 105, 27, { align: 'center' });
+
+                    // Key Tips Section
+                    yPos = 45;
                     doc.setFontSize(14);
-                    doc.text('Form 1040 - Key Lines:', 20, yPos);
-                    yPos += 15;
-                    
+                    doc.setTextColor(1, 38, 153);
+                    doc.setFont(undefined, 'bold');
+                    doc.text('Important Tips:', 20, yPos);
+                    doc.setFont(undefined, 'normal');
+
+                    yPos += 12;
                     doc.setFontSize(10);
-                    doc.text('Line 11 - Adjusted Gross Income (AGI)', 20, yPos);
-                    doc.text('  Most important for FAFSA calculations', 25, yPos + 8);
-                    yPos += 20;
-                    
-                    doc.text('Line 24 - Federal Income Tax Paid', 20, yPos);
-                    doc.text('  Amount you actually paid in federal taxes', 25, yPos + 8);
-                    yPos += 20;
-                    
-                    doc.text('Line 1 - Wages, Salaries, Tips', 20, yPos);
-                    doc.text('  Total wages from all W-2 forms', 25, yPos + 8);
-                    yPos += 25;
-                    
-                    // Add W-2 guide
-                    doc.setFontSize(14);
-                    doc.text('W-2 Form - Key Boxes:', 20, yPos);
-                    yPos += 15;
-                    
-                    doc.setFontSize(10);
-                    doc.text('Box 1 - Wages, Tips, Other Compensation', 20, yPos);
-                    doc.text('  Your gross wages before taxes', 25, yPos + 8);
-                    yPos += 20;
-                    
-                    doc.text('Box 2 - Federal Income Tax Withheld', 20, yPos);
-                    doc.text('  Federal taxes withheld from your pay', 25, yPos + 8);
-                    yPos += 25;
-                    
-                    // Add Schedule C guide
-                    doc.setFontSize(14);
-                    doc.text('Schedule C - Self-Employment:', 20, yPos);
-                    yPos += 15;
-                    
-                    doc.setFontSize(10);
-                    doc.text('Line 31 - Net Profit or Loss', 20, yPos);
-                    doc.text('  Business income after expenses (for FAFSA)', 25, yPos + 8);
-                    yPos += 25;
-                    
-                    // Add common mistakes
-                    doc.setFontSize(14);
-                    doc.text('Common Mistakes to Avoid:', 20, yPos);
-                    yPos += 15;
-                    
-                    doc.setFontSize(10);
-                    doc.text('• Using W-2 Box 2 instead of 1040 Line 24', 20, yPos);
-                    yPos += 8;
-                    doc.text('• Confusing Gross Income with AGI', 20, yPos);
-                    yPos += 8;
-                    doc.text('• Missing Self-Employment Income', 20, yPos);
-                    
-                    // Add footer
+                    doc.setTextColor(0, 0, 0);
+
+                    const tips = [
+                        '1. FAFSA uses your AGI from Form 1040, Line 11 - not your gross income',
+                        '2. Federal Income Tax Paid comes from Form 1040, Line 24 - not W-2 Box 2',
+                        '3. Add all W-2 Box 1 amounts if you have multiple jobs',
+                        '4. Include self-employment income from Schedule C, Line 31',
+                        '5. Use the correct tax year for the academic year you\'re applying for',
+                        '6. Keep copies of all tax documents when completing FAFSA'
+                    ];
+
+                    tips.forEach(tip => {
+                        const tipLines = doc.splitTextToSize(tip, 170);
+                        doc.text(tipLines, 20, yPos);
+                        yPos += tipLines.length * 6 + 3;
+                    });
+
+                    // Add footer on page 2
+                    doc.setFontSize(8);
+                    doc.setTextColor(100, 100, 100);
+                    doc.text('Generated: ' + new Date().toLocaleDateString(), 105, 275, { align: 'center' });
+                    doc.text('© 2025 My College Finance. All rights reserved.', 105, 280, { align: 'center' });
+
+                    // Add footer on page 1
+                    doc.setPage(1);
                     doc.setFontSize(8);
                     doc.setTextColor(100, 100, 100);
                     doc.text('© 2025 My College Finance. All rights reserved.', 105, 285, { align: 'center' });
-                    
+
                     // Save the PDF
                     console.log('Guide PDF generated successfully, saving...');
                     doc.save('MCF-Tax-Forms-Visual-Guide.pdf');
                     console.log('Guide PDF saved successfully!');
-                    
+
                     // Show success message
-                    alert('Guide PDF downloaded successfully! Check your downloads folder.');
+                    alert('Visual Guide PDF downloaded successfully! Check your downloads folder.');
                 } catch (error) {
                     console.error('Error generating guide PDF:', error);
                     alert('Error generating guide PDF: ' + error.message + '. Please try again.');
